@@ -1,0 +1,2481 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="royal-dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>منصة سهلتهالك بخطوه | الصف الأول الثانوي - الترم الأول</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        if (window.pdfjsLib) {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'Tajawal', 'sans-serif'],
+                        arabicOrnament: ['Amiri', 'serif'],
+                        britishSerif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        primary: 'var(--bg-primary)',
+                        secondary: 'var(--bg-secondary)',
+                        card: 'var(--bg-card)',
+                        accent: 'var(--accent-color)',
+                        accentSec: 'var(--accent-secondary)',
+                        textMain: 'var(--text-main)',
+                        textMuted: 'var(--text-muted)',
+                        borderCol: 'var(--border-color)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* ==================== DYNAMIC DESIGN TOKENS & 4 THEMES ==================== */
+        :root, [data-theme="royal-dark"] {
+            --bg-primary: #050811;
+            --bg-secondary: #0b1121;
+            --bg-card: #121b33;
+            --accent-color: #6366f1;
+            --accent-secondary: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+            --font-scale: 1;
+        }
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --accent-color: #2563eb;
+            --accent-secondary: #d97706;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border-color: #cbd5e1;
+        }
+        [data-theme="tech-blue"] {
+            --bg-primary: #020c1b;
+            --bg-secondary: #0a192f;
+            --bg-card: #112240;
+            --accent-color: #00d2ff;
+            --accent-secondary: #38bdf8;
+            --text-main: #e6f1ff;
+            --text-muted: #8892b0;
+            --border-color: #233554;
+        }
+        [data-theme="gold"] {
+            --bg-primary: #0c0904;
+            --bg-secondary: #181207;
+            --bg-card: #241b0b;
+            --accent-color: #eab308;
+            --accent-secondary: #fb923c;
+            --text-main: #fefce8;
+            --text-muted: #d6c59c;
+            --border-color: #423212;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            font-size: calc(16px * var(--font-scale));
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .gpu-layer {
+            transform: translate3d(0, 0, 0);
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+        }
+
+        /* ==================== SUBJECT-SPECIFIC ATMOSPHERES ==================== */
+        /* 1. AL-SAFFAHI INTEGRATED SCIENCES (VOLCANIC CRIMSON & ENERGY) */
+        .theme-saffahi {
+            background: radial-gradient(circle at top right, #7f1d1d 0%, #450a0a 40%, #1c0505 85%, #090202 100%);
+            border: 2px solid #ef4444;
+            box-shadow: 0 15px 45px -10px rgba(239, 68, 68, 0.55), inset 0 0 35px rgba(245, 158, 11, 0.2);
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+        }
+        .theme-saffahi::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(251, 191, 36, 0.2) 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            pointer-events: none;
+        }
+
+        /* 2. PHARAONIC HISTORY THEME */
+        .theme-pharaonic {
+            background: linear-gradient(135deg, #1e1608 0%, #3b280c 45%, #172554 100%);
+            border: 2px solid #eab308;
+            box-shadow: 0 12px 35px -8px rgba(234, 179, 8, 0.45);
+            position: relative;
+            overflow: hidden;
+            color: #fef9c3;
+        }
+        .theme-pharaonic::after {
+            content: "𓂀 𓆣 𓇳 𓋹 𓅃 𓆸 𓉴 𓂀";
+            position: absolute;
+            bottom: 6px;
+            left: 16px;
+            font-size: 14px;
+            letter-spacing: 6px;
+            color: rgba(250, 204, 21, 0.32);
+            pointer-events: none;
+        }
+
+        /* 3. ARABESQUE CALLIGRAPHY ARABIC THEME */
+        .theme-arabic {
+            background: linear-gradient(135deg, #063729 0%, #065f46 55%, #134e4a 100%);
+            border: 2px solid #34d399;
+            box-shadow: 0 12px 35px -8px rgba(16, 185, 129, 0.45);
+            position: relative;
+            overflow: hidden;
+            color: #ecfdf5;
+        }
+        .theme-arabic::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: repeating-linear-gradient(45deg, rgba(251, 191, 36, 0.08) 0, rgba(251, 191, 36, 0.08) 2px, transparent 2px, transparent 16px);
+            pointer-events: none;
+        }
+
+        /* 4. BRITISH ROYAL LONDON ENGLISH THEME */
+        .theme-english {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #7f1d1d 100%);
+            border: 2px solid #f87171;
+            box-shadow: 0 12px 35px -8px rgba(59, 130, 246, 0.45);
+            position: relative;
+            overflow: hidden;
+            color: #f8fafc;
+        }
+
+        /* 5. CYBER BLUEPRINT MATH THEME */
+        .theme-math {
+            background: linear-gradient(135deg, #090d16 0%, #1e1b4b 55%, #0c4a6e 100%);
+            border: 2px solid #38bdf8;
+            box-shadow: 0 12px 35px -8px rgba(56, 189, 248, 0.4);
+            position: relative;
+            overflow: hidden;
+            color: #e0f2fe;
+        }
+        .theme-math::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(to right, rgba(56, 189, 248, 0.14) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(56, 189, 248, 0.14) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+        }
+
+        /* 6. CLASSICAL WISDOM PHILOSOPHY THEME */
+        .theme-philosophy {
+            background: linear-gradient(135deg, #1e1b2e 0%, #312e81 55%, #4c1d95 100%);
+            border: 2px solid #c084fc;
+            color: #f3e8ff;
+        }
+
+        /* 7. PARISIAN EIFFEL FRENCH THEME */
+        .theme-french {
+            background: linear-gradient(135deg, #172554 0%, #311042 55%, #881337 100%);
+            border: 2px solid #fb7185;
+            color: #fff1f2;
+        }
+
+        /* ==================== DYNAMIC STUDENT TIER FRAMES (BRONZE / SILVER / GOLD) ==================== */
+        .frame-bronze {
+            padding: 4px;
+            background: linear-gradient(135deg, #78350f, #d97706, #b45309, #78350f);
+            box-shadow: 0 0 20px rgba(217, 119, 6, 0.55);
+        }
+        .frame-silver {
+            padding: 4px;
+            background: linear-gradient(135deg, #475569, #f8fafc, #94a3b8, #e2e8f0);
+            box-shadow: 0 0 24px rgba(226, 232, 240, 0.65);
+        }
+        .frame-gold {
+            padding: 5px;
+            background: linear-gradient(135deg, #b45309, #fde047, #f59e0b, #fef08a, #b45309);
+            background-size: 200% 200%;
+            animation: goldShimmer 2.5s linear infinite;
+            box-shadow: 0 0 32px rgba(250, 204, 21, 0.85);
+        }
+        @keyframes goldShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .page-section {
+            display: none;
+            animation: gpuFadeIn 0.14s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .page-section.active { display: block; }
+
+        @keyframes gpuFadeIn {
+            from { opacity: 0; transform: translate3d(0, 5px, 0); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+
+        /* Fullscreen Smart Board Mode */
+        #page-smartboard.active {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 5000;
+            background: #060a13;
+            margin: 0;
+            padding: 0;
+            max-width: none;
+        }
+        .sb-grid {
+            background-image: linear-gradient(to right, rgba(148, 163, 184, 0.22) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(148, 163, 184, 0.22) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+        .sb-lines {
+            background-image: linear-gradient(to bottom, rgba(148, 163, 184, 0.28) 1px, transparent 1px);
+            background-size: 100% 36px;
+        }
+
+        /* Textbook Typography */
+        .textbook-content h3 {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: var(--accent-secondary);
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .textbook-content p { line-height: 1.95; margin-bottom: 0.85rem; }
+        .textbook-content ul { list-style-type: disc; padding-right: 1.5rem; margin-bottom: 1rem; }
+        .textbook-content li { line-height: 1.85; margin-bottom: 0.35rem; }
+        .textbook-callout {
+            background: rgba(245, 158, 11, 0.14);
+            border-right: 4px solid var(--accent-secondary);
+            padding: 0.9rem 1.1rem;
+            border-radius: 0.85rem;
+            margin: 1rem 0;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 99px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
+    </style>
+    <style id="dev-injected-custom-css"></style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-accent selection:text-white">
+
+    <!-- ==================== MAINTENANCE OVERLAY ==================== -->
+    <div id="maintenance-overlay" class="fixed inset-0 z-[10050] hidden flex-col items-center justify-center bg-slate-950/95 backdrop-blur-xl p-6 text-center">
+        <div class="max-w-md space-y-4 p-8 rounded-3xl bg-slate-900 border-2 border-amber-500 shadow-2xl">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-3xl animate-pulse">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+            </div>
+            <h2 class="text-2xl font-black text-white">تحديث شامل جارٍ على منصة سهلتهالك بخطوه</h2>
+            <p class="text-sm text-slate-300 leading-relaxed">يقوم فريق تطوير تيم القدوه (Hassanelngar) برفع التحديثات السحابية الجديدة الآن. سنعود خلال دقائق!</p>
+            <button onclick="openAuthModal('developer')" class="px-5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-black text-xs hover:brightness-110 transition">
+                دخول المشرف / المطور (تجاوز الصيانة)
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== GLOBAL SYSTEM UPDATE / BROADCAST BANNER ==================== -->
+    <div id="live-broadcast-banner" class="fixed top-16 left-1/2 -translate-x-1/2 z-[10095] hidden w-[92%] max-w-lg bg-gradient-to-l from-amber-600 via-rose-600 to-indigo-700 text-white rounded-2xl p-4 shadow-2xl border-2 border-amber-300 gpu-layer">
+        <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-xl shrink-0 animate-bounce">
+                    <i class="fa-solid fa-rocket"></i>
+                </div>
+                <div>
+                    <div id="live-broadcast-title" class="text-[11px] font-black text-amber-200">تحديث شامل جديد • منصة سهلتهالك بخطوه</div>
+                    <p id="live-broadcast-text" class="text-xs sm:text-sm font-bold mt-0.5 leading-relaxed"></p>
+                </div>
+            </div>
+            <button onclick="document.getElementById('live-broadcast-banner').classList.add('hidden')" class="text-white/80 hover:text-white text-sm"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <!-- ==================== GLOBAL SCREEN ANNOTATION CANVASES (144FPS) ==================== -->
+    <canvas id="global-draw-canvas" class="fixed inset-0 w-full h-full z-[9990] pointer-events-none touch-none gpu-layer"></canvas>
+    <canvas id="global-laser-canvas" class="fixed inset-0 w-full h-full z-[9991] pointer-events-none gpu-layer"></canvas>
+
+    <!-- ==================== CUSTOMIZABLE FLOATING ANNOTATION OVERLAY ==================== -->
+    <div id="global-annotator-bar" style="transform-origin: bottom left;" class="fixed bottom-4 left-4 z-[9999] flex flex-wrap items-center gap-1.5 p-2 rounded-2xl bg-slate-900/95 backdrop-blur-xl border border-slate-700 shadow-[0_12px_40px_rgba(0,0,0,0.85)] text-white select-none gpu-layer transition-transform duration-150">
+        <div id="annotator-drag-handle" class="px-2 py-1 text-slate-400 hover:text-white cursor-grab active:cursor-grabbing flex items-center" title="اسحب لتحريك شريط الأدوات">
+            <i class="fa-solid fa-grip-vertical text-sm"></i>
+        </div>
+
+        <button type="button" onclick="selectGlobalMode('cursor')" id="gmode-cursor" class="gmode-btn px-3 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-black flex items-center gap-1.5 transition shadow">
+            <i class="fa-solid fa-arrow-pointer"></i>
+            <span>تصفح</span>
+        </button>
+
+        <button type="button" onclick="selectGlobalMode('pen')" id="gmode-pen" class="gmode-btn px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-400 text-xs font-extrabold flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-pen"></i>
+            <span class="hidden sm:inline">قلم</span>
+        </button>
+
+        <button type="button" onclick="selectGlobalMode('highlighter')" id="gmode-highlighter" class="gmode-btn px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-yellow-400 text-xs font-extrabold flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-highlighter"></i>
+            <span class="hidden sm:inline">هايلايت</span>
+        </button>
+
+        <button type="button" onclick="selectGlobalMode('laser')" id="gmode-laser" class="gmode-btn px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-rose-400 text-xs font-extrabold flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span class="hidden sm:inline">ليزر</span>
+        </button>
+
+        <button type="button" onclick="selectGlobalMode('eraser')" id="gmode-eraser" class="gmode-btn w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center text-xs transition" title="ممحاة">
+            <i class="fa-solid fa-eraser"></i>
+        </button>
+
+        <div id="custom-dev-pens-bar" class="flex items-center gap-1"></div>
+
+        <div class="h-5 w-[1px] bg-slate-700 mx-0.5"></div>
+
+        <div class="flex items-center gap-1">
+            <button type="button" onclick="setGlobalColor('#38bdf8')" class="w-5 h-5 rounded-full bg-sky-400 border border-white/60 hover:scale-110 transition"></button>
+            <button type="button" onclick="setGlobalColor('#facc15')" class="w-5 h-5 rounded-full bg-yellow-400 border border-white/60 hover:scale-110 transition"></button>
+            <button type="button" onclick="setGlobalColor('#f43f5e')" class="w-5 h-5 rounded-full bg-rose-500 border border-white/60 hover:scale-110 transition"></button>
+            <button type="button" onclick="setGlobalColor('#10b981')" class="w-5 h-5 rounded-full bg-emerald-500 border border-white/60 hover:scale-110 transition"></button>
+            <input type="color" id="global-color-picker" value="#38bdf8" oninput="setGlobalColor(this.value)" class="w-6 h-6 rounded-full bg-transparent border-0 cursor-pointer" title="لون مخصص">
+        </div>
+
+        <div class="flex items-center bg-slate-800 rounded-xl border border-slate-700 px-1 py-0.5 gap-1">
+            <button type="button" onclick="adjustToolbarScale(-0.1)" class="w-6 h-6 rounded-lg hover:bg-slate-700 text-xs font-black text-slate-300">-</button>
+            <span id="toolbar-scale-badge" class="text-[10px] font-mono text-amber-400">100%</span>
+            <button type="button" onclick="adjustToolbarScale(0.1)" class="w-6 h-6 rounded-lg hover:bg-slate-700 text-xs font-black text-slate-300">+</button>
+        </div>
+
+        <button type="button" onclick="undoGlobalCanvas()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center text-xs transition" title="تراجع">
+            <i class="fa-solid fa-rotate-right"></i>
+        </button>
+        <button type="button" onclick="clearGlobalCanvas()" class="w-8 h-8 rounded-xl bg-rose-600/25 hover:bg-rose-600 text-rose-300 hover:text-white flex items-center justify-center text-xs transition" title="مسح الشاشة">
+            <i class="fa-solid fa-trash"></i>
+        </button>
+    </div>
+
+    <!-- ==================== SMS VERIFICATION TOAST ==================== -->
+    <div id="sms-popup-banner" class="fixed top-4 left-1/2 -translate-x-1/2 z-[10100] hidden w-[92%] max-w-md bg-slate-900/95 backdrop-blur-xl border-2 border-emerald-500 rounded-2xl p-4 shadow-2xl text-white gpu-layer">
+        <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg shrink-0 mt-0.5">
+                <i class="fa-solid fa-comment-sms"></i>
+            </div>
+            <div class="flex-1">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-black text-emerald-400">رسالة SMS واردة • سهلتهالك بخطوه</span>
+                    <button onclick="document.getElementById('sms-popup-banner').classList.add('hidden')" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <p id="sms-popup-text" class="text-xs text-slate-200 mt-1 leading-relaxed"></p>
+                <div class="mt-2 flex items-center justify-between bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800">
+                    <span class="text-[11px] text-slate-400">كود التحقق:</span>
+                    <span id="sms-popup-code" class="font-mono font-black text-base tracking-widest text-amber-400">000000</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== ADMIN WHATSAPP / TELEMETRY RELAY ALERT (01050489662) ==================== -->
+    <div id="admin-alert-toast" class="fixed top-20 left-4 z-[10090] hidden max-w-sm bg-slate-900/95 backdrop-blur-xl border-2 border-amber-500 rounded-2xl p-4 shadow-2xl text-white gpu-layer">
+        <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg shrink-0">
+                <i class="fa-brands fa-whatsapp"></i>
+            </div>
+            <div class="flex-1 space-y-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-black text-amber-400">تنبيه المشرف (01050489662)</span>
+                    <button onclick="document.getElementById('admin-alert-toast').classList.add('hidden')" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <p id="admin-alert-text" class="text-[11px] text-slate-200 leading-relaxed"></p>
+                <a id="admin-wa-direct-link" href="#" target="_blank" rel="noopener" class="w-full py-1.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-[11px] text-center flex items-center justify-center gap-1.5 transition">
+                    <i class="fa-brands fa-whatsapp"></i> إرسال واتساب إلى 01050489662
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== GENERAL NOTIFICATION TOAST ==================== -->
+    <div id="app-toast" class="fixed bottom-20 right-4 z-[10080] hidden max-w-sm bg-slate-900/95 backdrop-blur-xl border border-slate-700 rounded-2xl p-4 shadow-2xl text-white gpu-layer">
+        <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-bell"></i>
+            </div>
+            <div class="flex-1">
+                <h4 id="toast-title" class="text-xs font-black text-white">إشعار</h4>
+                <p id="toast-body" class="text-xs text-slate-300 mt-0.5 leading-relaxed"></p>
+            </div>
+            <button onclick="document.getElementById('app-toast').classList.add('hidden')" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <!-- ==================== TOP CLOUD STATUS & GAMIFICATION BAR ==================== -->
+    <div class="bg-gradient-to-l from-indigo-950 via-slate-900 to-slate-950 text-white text-xs py-1.5 px-4 border-b border-white/10">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2 overflow-hidden">
+                <span id="platform-version-badge" class="px-2 py-0.5 rounded-md bg-amber-500 text-slate-950 font-black text-[10px] shrink-0">V7.0 CLOUD</span>
+                <p id="announcement-text" class="truncate font-semibold text-slate-100">منصة سهلتهالك بخطوه — لكل مادة تصميمها الخاص (علوم السفاحي، التاريخ الفرعوني، العربي الأصيل، الإنجليزي الملكي) + مساعد ذكي + تقرير أداء!</p>
+            </div>
+            <div class="flex items-center gap-3 shrink-0 text-[11px] font-black">
+                <span class="text-emerald-400 hidden md:flex items-center gap-1" title="المزامنة السحابية مفعلة"><i class="fa-solid fa-cloud-check"></i> <span>متزامن سحابياً</span></span>
+                <button onclick="navigateTo('profile')" class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-white/20 transition">
+                    <span id="header-tier-badge" class="text-amber-400">🥉 برونزي</span>
+                    <span class="text-white font-mono" id="user-xp-badge">250 XP</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MAIN HEADER & NAVIGATION ==================== -->
+    <header class="sticky top-0 z-[4000] bg-secondary/95 backdrop-blur-xl border-b border-borderCol shadow-sm">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2">
+            <!-- Brand Logo -->
+            <div onclick="navigateTo('home')" class="flex items-center gap-2.5 cursor-pointer group">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-accent to-amber-500 flex items-center justify-center text-white text-lg font-black shadow-lg group-hover:scale-105 transition">
+                    <i class="fa-solid fa-bolt-lightning"></i>
+                </div>
+                <div>
+                    <h1 id="cms-brand-name" class="text-base sm:text-lg font-black tracking-tight leading-none text-textMain">سهلتهالك بخطوه</h1>
+                    <p id="cms-brand-subtitle" class="text-[10px] sm:text-xs text-textMuted font-bold mt-0.5">الصف الأول الثانوي • الترم الأول</p>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="flex items-center gap-1 sm:gap-1.5 overflow-x-auto max-w-full py-1 order-3 lg:order-2 w-full lg:w-auto justify-start lg:justify-center">
+                <button onclick="navigateTo('home')" data-nav="home" class="nav-btn px-3 py-2 rounded-xl text-xs sm:text-sm font-bold bg-accent text-white transition whitespace-nowrap">
+                    <i class="fa-solid fa-house ml-1"></i> الرئيسية
+                </button>
+                <button onclick="navigateTo('subjects')" data-nav="subjects" class="nav-btn px-3 py-2 rounded-xl text-xs sm:text-sm font-bold hover:bg-card text-textMain transition whitespace-nowrap">
+                    <i class="fa-solid fa-book-open ml-1"></i> المواد ومساعد المادة
+                </button>
+                <button id="nav-saffahi-btn" onclick="openSubject('sciences')" class="px-3 py-2 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-red-800 via-red-600 to-amber-600 text-white shadow hover:brightness-110 transition whitespace-nowrap flex items-center gap-1">
+                    <i class="fa-solid fa-fire text-yellow-300"></i> علوم السفاحي
+                </button>
+                <button id="nav-books-btn" onclick="navigateTo('books')" data-nav="books" class="nav-btn px-3 py-2 rounded-xl text-xs sm:text-sm font-bold hover:bg-card text-textMain transition whitespace-nowrap flex items-center gap-1">
+                    <i class="fa-solid fa-file-pdf text-rose-400"></i> الكتب والتقييمات PDF
+                </button>
+                <button id="nav-smartboard-btn" onclick="navigateTo('smartboard')" data-nav="smartboard" class="nav-btn px-3 py-2 rounded-xl text-xs sm:text-sm font-bold hover:bg-card text-textMain transition whitespace-nowrap">
+                    <i class="fa-solid fa-chalkboard-user ml-1 text-emerald-400"></i> السبورة الذكية
+                </button>
+                <button onclick="navigateTo('profile')" data-nav="profile" class="nav-btn px-3 py-2 rounded-xl text-xs sm:text-sm font-bold hover:bg-card text-textMain transition whitespace-nowrap flex items-center gap-1">
+                    <i class="fa-solid fa-id-card text-amber-400"></i> حسابي وتقرير الأداء
+                </button>
+                <button onclick="navigateTo('support')" data-nav="support" class="nav-btn px-3 py-2 rounded-xl text-xs sm:text-sm font-bold hover:bg-card text-textMain transition whitespace-nowrap flex items-center gap-1">
+                    <i class="fa-solid fa-headset text-sky-400"></i> الدعم الفني
+                </button>
+                <button id="nav-dev-btn" onclick="navigateTo('developer')" data-nav="developer" class="hidden nav-btn px-3 py-2 rounded-xl text-xs sm:text-sm font-black bg-amber-500 text-slate-950 transition whitespace-nowrap shadow">
+                    <i class="fa-solid fa-crown ml-1"></i> لوحة المشرف
+                </button>
+            </nav>
+
+            <!-- Right Controls: 4 Themes + Login -->
+            <div class="flex items-center gap-2 order-2 lg:order-3">
+                <div class="flex items-center bg-primary border border-borderCol rounded-xl p-1 gap-1" title="تغيير المظهر">
+                    <button onclick="setAppTheme('royal-dark')" class="w-6 h-6 rounded-lg bg-indigo-950 border border-indigo-500 flex items-center justify-center text-[10px] text-indigo-300" title="الداكن الملكي"><i class="fa-solid fa-crown"></i></button>
+                    <button onclick="setAppTheme('light')" class="w-6 h-6 rounded-lg bg-white border border-slate-300 flex items-center justify-center text-[10px] text-amber-500" title="الفاتح"><i class="fa-solid fa-sun"></i></button>
+                    <button onclick="setAppTheme('tech-blue')" class="w-6 h-6 rounded-lg bg-sky-950 border border-cyan-400 flex items-center justify-center text-[10px] text-cyan-300" title="الأزرق التقني"><i class="fa-solid fa-microchip"></i></button>
+                    <button onclick="setAppTheme('gold')" class="w-6 h-6 rounded-lg bg-amber-950 border border-yellow-400 flex items-center justify-center text-[10px] text-yellow-400" title="الوضع الذهبي"><i class="fa-solid fa-star"></i></button>
+                </div>
+
+                <button onclick="openAuthModal('student')" class="px-3.5 py-2 rounded-xl bg-card hover:bg-accent hover:text-white border border-borderCol text-xs font-extrabold flex items-center gap-2 transition shadow-sm">
+                    <i class="fa-solid fa-user-shield text-accentSec"></i>
+                    <span id="header-user-name">تسجيل الدخول</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+    <main class="flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 py-6">
+
+        <!-- ===================================================================== -->
+        <!-- SECTION 1: HOME DASHBOARD                                             -->
+        <!-- ===================================================================== -->
+        <section id="page-home" class="page-section active space-y-8">
+            <div class="rounded-3xl bg-gradient-to-br from-secondary via-card to-primary border border-borderCol p-6 sm:p-10 relative overflow-hidden shadow-xl">
+                <div class="max-w-3xl space-y-4 relative z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/15 border border-accent/30 text-accent text-xs font-black">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>المنهج المصري المطور • أولى ثانوي الترم الأول</span>
+                    </div>
+                    <h2 id="cms-hero-title" class="text-2xl sm:text-4xl lg:text-5xl font-black leading-tight text-textMain">
+                        مع منصة <span class="text-transparent bg-clip-text bg-gradient-to-l from-accent to-amber-400">سهلتهالك بخطوه</span> كل مادة ليها عالمها الخاص!
+                    </h2>
+                    <p class="text-sm sm:text-base text-textMuted leading-relaxed max-w-2xl">
+                        تجربة بصرية فريدة لكل مادة: <strong>علوم السفاحي النارية</strong>، <strong>التاريخ الفرعوني الملكي</strong>، <strong>العربي الأصيل</strong>، و<strong>الإنجليزي البريطاني</strong>، مع مساعد ذكي لكل مادة وتقرير أداء بالإطارات البرونزية والفضية والذهبية.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-3 pt-2">
+                        <button onclick="navigateTo('subjects')" class="px-6 py-3 rounded-2xl bg-accent hover:brightness-110 text-white font-black text-sm shadow-lg transition flex items-center gap-2">
+                            <i class="fa-solid fa-compass"></i> استكشف عوالم المواد
+                        </button>
+                        <button onclick="navigateTo('profile')" class="px-6 py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm shadow-lg transition flex items-center gap-2">
+                            <i class="fa-solid fa-id-badge"></i> كودي وتقرير نتائجي
+                        </button>
+                        <button onclick="navigateTo('smartboard')" class="px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm shadow-lg transition flex items-center gap-2">
+                            <i class="fa-solid fa-chalkboard-user"></i> السبورة الذكية
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Al-Saffahi Spotlight -->
+            <div id="home-saffahi-spotlight" class="theme-saffahi rounded-3xl p-6 sm:p-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                    <div class="space-y-3 max-w-2xl">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/30 border border-amber-400 text-amber-300 text-xs font-black">
+                            <i class="fa-solid fa-fire-flame-curved"></i>
+                            <span>وضع السفاحي الأسطوري • مختبر الطاقة والبركان</span>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-black text-white">العلوم المتكاملة — بطابع السفاحي 🔥</h3>
+                        <p class="text-xs sm:text-sm text-rose-100/90 leading-relaxed">
+                            ادخل مختبر السفاحي المشتعل لدراسة النظام البيئي المائي والغلاف الجوي مع رسوم جزيئية متحركة، مساعد العلوم الذكي، واختبارات ترفع إسكورك للإطار الذهبي!
+                        </p>
+                    </div>
+                    <button onclick="openSubject('sciences')" class="px-7 py-3.5 rounded-2xl bg-gradient-to-l from-amber-400 to-yellow-300 hover:brightness-110 text-slate-950 font-black text-sm shadow-xl transition shrink-0 flex items-center gap-2">
+                        <span>ادخل مختبر السفاحي</span>
+                        <i class="fa-solid fa-bolt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Subjects Grid with Custom Themes Preview -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-xl font-black text-textMain"><i class="fa-solid fa-palette text-accent ml-2"></i> اختر مادتك (كل مادة بتصميم وهوية مستقلة)</h3>
+                </div>
+                <div id="home-subjects-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SECTION 2: SUBJECTS + CUSTOM THEME + SUBJECT AI ASSISTANT + MEDIA      -->
+        <!-- ===================================================================== -->
+        <section id="page-subjects" class="page-section space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-3 bg-secondary p-4 rounded-2xl border border-borderCol">
+                <div>
+                    <h2 class="text-lg font-black text-textMain">عوالم المواد الدراسية (الترم الأول)</h2>
+                    <p class="text-xs text-textMuted">تتغير هوية الصفحة بالكامل حسب المادة المختارة + مساعد ذكي خاص بكل مادة</p>
+                </div>
+                <div id="subject-selector-pills" class="flex flex-wrap gap-1.5"></div>
+            </div>
+
+            <!-- Dynamic Subject Atmospheric Header -->
+            <div id="active-subject-header" class="rounded-3xl p-6 sm:p-8 transition-all duration-300"></div>
+
+            <!-- Subject Resources Bar (Images, Videos, Links added by Admin/Teachers) -->
+            <div id="subject-resources-bar" class="hidden bg-secondary border border-borderCol rounded-3xl p-5 space-y-3"></div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <!-- Left Column: Units Sidebar + Smart Subject Assistant -->
+                <div class="lg:col-span-4 space-y-5">
+                    <div id="units-sidebar-container" class="space-y-3 bg-secondary p-4 rounded-3xl border border-borderCol"></div>
+
+                    <!-- DEDICATED SMART SUBJECT ASSISTANT (مساعد المادة الذكي) -->
+                    <div class="bg-secondary border-2 border-accent/50 rounded-3xl p-4 space-y-3 shadow-xl">
+                        <div class="flex items-center justify-between border-b border-borderCol pb-2.5">
+                            <div class="flex items-center gap-2">
+                                <div class="w-9 h-9 rounded-xl bg-accent/20 text-accent flex items-center justify-center text-base">
+                                    <i class="fa-solid fa-robot"></i>
+                                </div>
+                                <div>
+                                    <h4 id="assistant-title" class="text-xs sm:text-sm font-black text-textMain">مساعد المادة الذكي</h4>
+                                    <span id="assistant-subtitle" class="text-[10px] text-emerald-400 font-bold">متصل وجاهز للشرح والتلخيص</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="assistant-chat-box" class="h-48 overflow-y-auto space-y-2 p-2.5 rounded-2xl bg-primary border border-borderCol text-xs"></div>
+
+                        <div class="flex flex-wrap gap-1.5">
+                            <button onclick="askSubjectAssistant('لخص لي هذا الدرس في نقاط سريعة')" class="px-2.5 py-1 rounded-lg bg-card hover:bg-accent hover:text-white border border-borderCol text-[10px] font-bold transition">✨ لخص الدرس</button>
+                            <button onclick="askSubjectAssistant('أعطني أهم سؤال متوقع في الامتحان')" class="px-2.5 py-1 rounded-lg bg-card hover:bg-accent hover:text-white border border-borderCol text-[10px] font-bold transition">🎯 سؤال امتحان</button>
+                            <button onclick="askSubjectAssistant('ما أهم القوانين أو القواعد هنا؟')" class="px-2.5 py-1 rounded-lg bg-card hover:bg-accent hover:text-white border border-borderCol text-[10px] font-bold transition">📌 القواعد الأساسية</button>
+                        </div>
+
+                        <div class="flex gap-1.5">
+                            <input type="text" id="assistant-user-input" onkeydown="if(event.key==='Enter') sendAssistantCustomMsg()" placeholder="اسأل مساعد المادة أي سؤال..." class="flex-1 bg-primary border border-borderCol rounded-xl px-3 py-2 text-xs">
+                            <button onclick="sendAssistantCustomMsg()" class="px-3.5 py-2 rounded-xl bg-accent text-white text-xs font-black"><i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Full Textbook Lesson + Media + Graded Quiz -->
+                <div id="lesson-viewer-container" class="lg:col-span-8 bg-secondary p-5 sm:p-8 rounded-3xl border border-borderCol space-y-6"></div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SECTION 3: STUDENT PROFILE, TIER FRAMES & PERFORMANCE REPORT CARD     -->
+        <!-- ===================================================================== -->
+        <section id="page-profile" class="page-section space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Student Identity Card with Dynamic Bronze/Silver/Gold Frame -->
+                <div class="lg:col-span-4 bg-secondary border border-borderCol rounded-3xl p-6 text-center space-y-4 shadow-xl">
+                    <div class="relative w-28 h-28 mx-auto">
+                        <div id="student-avatar-frame" class="w-full h-full rounded-full frame-bronze transition-all duration-300">
+                            <img id="student-avatar-img" src="https://api.dicebear.com/7.x/avataaars/svg?seed=ElQodwaStudent" alt="صورة الطالب" class="w-full h-full rounded-full object-cover bg-slate-900">
+                        </div>
+                        <label for="student-photo-upload" class="absolute bottom-0 right-0 w-9 h-9 rounded-full bg-accent hover:brightness-110 text-white flex items-center justify-center text-xs shadow-lg cursor-pointer border-2 border-secondary" title="تغيير الصورة الشخصية">
+                            <i class="fa-solid fa-camera"></i>
+                        </label>
+                        <input type="file" id="student-photo-upload" accept="image/*" onchange="handleStudentPhotoUpload(this.files[0])" class="sr-only">
+                    </div>
+
+                    <div class="space-y-1">
+                        <div id="profile-frame-label" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-600/20 border border-amber-500/40 text-amber-400 text-xs font-black">
+                            🥉 الإطار البرونزي (المستوى المبتدئ)
+                        </div>
+                        <h2 id="profile-student-name" class="text-xl font-black text-textMain pt-1">طالب منصة سهلتهالك بخطوه</h2>
+                        <div class="text-xs text-textMuted font-bold">الصف الأول الثانوي • الترم الأول</div>
+                    </div>
+
+                    <!-- Unique Auto-Generated Student Code -->
+                    <div class="p-3 rounded-2xl bg-primary border border-borderCol flex items-center justify-between">
+                        <span class="text-xs text-textMuted font-bold">كود الطالب الخاص:</span>
+                        <span id="profile-student-code" class="font-mono font-black text-sm text-amber-400 tracking-wider">SB-2026-8492</span>
+                    </div>
+
+                    <!-- XP Progress Towards Next Frame -->
+                    <div class="space-y-1.5 text-right">
+                        <div class="flex justify-between text-xs font-black">
+                            <span class="text-textMuted">تطور الإسكور للإطار التالي:</span>
+                            <span id="profile-xp-progress-text" class="text-accent font-mono">250 / 500 XP</span>
+                        </div>
+                        <div class="w-full h-3 rounded-full bg-primary border border-borderCol overflow-hidden">
+                            <div id="profile-xp-bar" class="h-full bg-gradient-to-l from-amber-400 to-accent transition-all duration-500" style="width: 50%;"></div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-1 pt-2 text-[10px] font-black text-center">
+                            <div class="p-1.5 rounded-xl bg-amber-900/30 border border-amber-700/50 text-amber-400">🥉 برونزي<br>0 - 499 XP</div>
+                            <div class="p-1.5 rounded-xl bg-slate-700/30 border border-slate-500/50 text-slate-200">🥈 فضي<br>500 - 1499 XP</div>
+                            <div class="p-1.5 rounded-xl bg-yellow-500/20 border border-yellow-400/60 text-yellow-300">👑 ذهبي<br>1500+ XP</div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 border-t border-borderCol">
+                        <input type="text" id="profile-edit-name-inp" placeholder="تعديل اسم الطالب..." class="w-full bg-primary border border-borderCol rounded-xl px-3 py-2 text-xs mb-2">
+                        <button onclick="updateStudentProfileName()" class="w-full py-2.5 rounded-xl bg-accent text-white font-black text-xs">حفظ تعديلات الحساب</button>
+                    </div>
+                </div>
+
+                <!-- Exam Results & Academic Performance Analytics -->
+                <div class="lg:col-span-8 bg-secondary border border-borderCol rounded-3xl p-6 space-y-6 shadow-xl">
+                    <div class="flex flex-wrap items-center justify-between gap-3 border-b border-borderCol pb-4">
+                        <div>
+                            <h3 class="text-xl font-black text-textMain"><i class="fa-solid fa-chart-line text-emerald-400 ml-1"></i> تقرير الأداء ونتائج الامتحانات التفصيلي</h3>
+                            <p class="text-xs text-textMuted">يتم تحديث التقرير تلقائياً فور حل أي اختبار داخل الدروس</p>
+                        </div>
+                        <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-card hover:bg-borderCol border border-borderCol text-xs font-black flex items-center gap-1.5">
+                            <i class="fa-solid fa-print text-amber-400"></i> طباعة الشهادة / التقرير
+                        </button>
+                    </div>
+
+                    <!-- Summary KPIs -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <div class="p-4 rounded-2xl bg-primary border border-borderCol text-center">
+                            <div class="text-xs text-textMuted font-bold">إجمالي النقاط</div>
+                            <div id="rep-total-xp" class="text-2xl font-black text-amber-400 font-mono mt-1">250</div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-primary border border-borderCol text-center">
+                            <div class="text-xs text-textMuted font-bold">الاختبارات المكتملة</div>
+                            <div id="rep-exams-count" class="text-2xl font-black text-sky-400 font-mono mt-1">0</div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-primary border border-borderCol text-center">
+                            <div class="text-xs text-textMuted font-bold">نسبة الدقة العامة</div>
+                            <div id="rep-accuracy" class="text-2xl font-black text-emerald-400 font-mono mt-1">100%</div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-primary border border-borderCol text-center">
+                            <div class="text-xs text-textMuted font-bold">التقدير العام</div>
+                            <div id="rep-grade-label" class="text-lg font-black text-purple-400 mt-1">ممتاز 🌟</div>
+                        </div>
+                    </div>
+
+                    <!-- Subject-by-Subject Performance Bars -->
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-black text-textMain">مستوى التقدم في كل مادة:</h4>
+                        <div id="report-subjects-bars" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+                    </div>
+
+                    <!-- Detailed Exam History Table -->
+                    <div class="space-y-2">
+                        <h4 class="text-sm font-black text-textMain">سجل درجات الاختبارات الأخيرة:</h4>
+                        <div class="overflow-x-auto rounded-2xl border border-borderCol">
+                            <table class="w-full text-right text-xs">
+                                <thead class="bg-card text-amber-400 font-black border-b border-borderCol">
+                                    <tr>
+                                        <th class="p-3">المادة</th>
+                                        <th class="p-3">الدرس / الاختبار</th>
+                                        <th class="p-3">الدرجة</th>
+                                        <th class="p-3">التاريخ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="report-exams-tbody" class="divide-y divide-borderCol bg-primary/50"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SECTION 4: TECHNICAL SUPPORT & PLATFORM ISSUE TICKETING               -->
+        <!-- ===================================================================== -->
+        <section id="page-support" class="page-section space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-5 bg-secondary border border-borderCol rounded-3xl p-6 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-black text-textMain">الدعم الفني وحل مشاكل المنصة</h2>
+                            <p class="text-xs text-textMuted">تصل رسالتك فوراً لفريق تطوير تيم القدوه (Hassanelngar)</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold mb-1">نوع المشكلة</label>
+                        <select id="sup-category" class="w-full bg-primary border border-borderCol rounded-xl px-3 py-2.5 text-xs font-bold">
+                            <option value="مشكلة في تشغيل فيديو أو درس">🎥 مشكلة في تشغيل فيديو أو درس</option>
+                            <option value="مشكلة في الحساب أو الكود">🔐 مشكلة في الحساب أو كود الطالب</option>
+                            <option value="اقتراح إضافة ميزة جديدة">💡 اقتراح إضافة ميزة جديدة</option>
+                            <option value="بلاغ تقني عاجل">🚨 بلاغ تقني عاجل</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold mb-1">اسم الطالب ورقم للتواصل</label>
+                        <input type="text" id="sup-contact" placeholder="الاسم + رقم الهاتف" class="w-full bg-primary border border-borderCol rounded-xl px-3 py-2.5 text-xs">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold mb-1">تفاصيل المشكلة</label>
+                        <textarea id="sup-details" rows="4" placeholder="اشرح المشكلة التي واجهتك بالتفصيل..." class="w-full bg-primary border border-borderCol rounded-xl px-3 py-2.5 text-xs"></textarea>
+                    </div>
+
+                    <button onclick="submitSupportTicket()" class="w-full py-3 rounded-2xl bg-sky-600 hover:bg-sky-500 text-white font-black text-xs shadow-lg transition">
+                        <i class="fa-solid fa-paper-plane ml-1"></i> إرسال البلاغ للدعم الفني والمشرف
+                    </button>
+                </div>
+
+                <div class="lg:col-span-7 bg-secondary border border-borderCol rounded-3xl p-6 space-y-4">
+                    <h3 class="text-lg font-black text-textMain"><i class="fa-solid fa-ticket text-amber-400 ml-1"></i> سجل تذاكر الدعم الفني والردود</h3>
+                    <div id="student-tickets-list" class="space-y-3 max-h-[460px] overflow-y-auto"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SECTION 5: SCHOOL BOOKS & WEEKLY ASSESSMENTS + PDF EDITOR STUDIO      -->
+        <!-- ===================================================================== -->
+        <section id="page-books" class="page-section space-y-6">
+            <div class="bg-secondary border border-borderCol rounded-3xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <h2 class="text-2xl font-black text-textMain">كتب المدرسة والتقييمات الأسبوعية (PDF)</h2>
+                    <p class="text-xs text-textMuted">افتح أي ملف في محرر الـ PDF المدمج للكتابة والتظليل وحفظ ملاحظاتك</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <button onclick="filterPdfLibrary('all')" id="pdf-filter-all" class="pdf-filter-btn px-3.5 py-2 rounded-xl bg-accent text-white text-xs font-black">الكل</button>
+                    <button onclick="filterPdfLibrary('book')" id="pdf-filter-book" class="pdf-filter-btn px-3.5 py-2 rounded-xl bg-card text-textMain text-xs font-bold">كتب المدرسة</button>
+                    <button onclick="filterPdfLibrary('assessment')" id="pdf-filter-assessment" class="pdf-filter-btn px-3.5 py-2 rounded-xl bg-card text-textMain text-xs font-bold">التقييمات الأسبوعية</button>
+                </div>
+            </div>
+
+            <div id="pdf-editor-studio" class="hidden bg-secondary border-2 border-accent/60 rounded-3xl overflow-hidden shadow-2xl">
+                <div class="bg-slate-900 text-white p-3 sm:px-5 flex flex-wrap items-center justify-between gap-3 border-b border-slate-700">
+                    <div>
+                        <h3 id="pdf-studio-title" class="text-xs sm:text-sm font-black text-white">اسم الملف</h3>
+                        <span id="pdf-studio-meta" class="text-[10px] text-amber-400 font-bold">محرر PDF التفاعلي</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 bg-slate-800 p-1.5 rounded-2xl border border-slate-700">
+                        <button onclick="setPdfTool('pen')" id="pdftool-pen" class="pdftool-btn px-2.5 py-1 rounded-xl bg-blue-600 text-white text-xs font-bold">قلم</button>
+                        <button onclick="setPdfTool('highlighter')" id="pdftool-highlighter" class="pdftool-btn px-2.5 py-1 rounded-xl text-yellow-400 text-xs font-bold">تظليل</button>
+                        <button onclick="setPdfTool('eraser')" id="pdftool-eraser" class="pdftool-btn px-2.5 py-1 rounded-xl text-slate-300 text-xs font-bold">ممحاة</button>
+                        <input type="color" id="pdf-pen-color" value="#ef4444" onchange="pdfPenColor = this.value" class="w-6 h-6 rounded-full bg-transparent border-0 cursor-pointer">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-1 bg-slate-800 px-2.5 py-1 rounded-xl border border-slate-700 text-xs font-black">
+                            <button onclick="changePdfPage(-1)"><i class="fa-solid fa-chevron-right"></i></button>
+                            <span id="pdf-page-indicator" class="font-mono text-amber-400 px-1">1 / 1</span>
+                            <button onclick="changePdfPage(1)"><i class="fa-solid fa-chevron-left"></i></button>
+                        </div>
+                        <button onclick="exportAnnotatedPdfPage()" class="px-3 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-black">حفظ</button>
+                        <button onclick="closePdfStudio()" class="px-3 py-1.5 rounded-xl bg-rose-600 text-white text-xs font-black">إغلاق</button>
+                    </div>
+                </div>
+                <div class="bg-slate-950/90 p-4 overflow-auto flex justify-center max-h-[80vh]">
+                    <div class="relative shadow-2xl rounded-xl overflow-hidden bg-white">
+                        <canvas id="pdf-render-canvas" class="block max-w-full h-auto"></canvas>
+                        <canvas id="pdf-annotate-canvas" class="absolute inset-0 w-full h-full touch-none cursor-crosshair"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pdf-library-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SECTION 6: FULLSCREEN SMART BOARD PRO                                 -->
+        <!-- ===================================================================== -->
+        <section id="page-smartboard" class="page-section">
+            <div id="sb-wrapper" class="relative w-screen h-screen overflow-hidden bg-[#060a13] gpu-layer">
+                <canvas id="smartboard-canvas" class="w-full h-full block touch-none cursor-crosshair"></canvas>
+                <canvas id="smartboard-laser-canvas" class="w-full h-full block pointer-events-none absolute inset-0"></canvas>
+
+                <div class="fixed top-3 left-3 z-[5100] flex items-center gap-1.5 bg-slate-900/90 backdrop-blur-xl border border-slate-700 px-2.5 py-1.5 rounded-full shadow-2xl text-white">
+                    <button onclick="navigateTo('home')" class="px-3 py-1 rounded-full bg-rose-600 hover:bg-rose-500 text-xs font-black flex items-center gap-1.5">
+                        <i class="fa-solid fa-right-from-bracket"></i><span>خروج</span>
+                    </button>
+                    <button onclick="sbPrevSlide()" class="w-7 h-7 rounded-full hover:bg-slate-800 flex items-center justify-center text-xs"><i class="fa-solid fa-chevron-right"></i></button>
+                    <span id="sb-slide-indicator" class="text-xs font-black px-1.5 text-amber-400 font-mono">1 / 1</span>
+                    <button onclick="sbNextSlide()" class="w-7 h-7 rounded-full hover:bg-slate-800 flex items-center justify-center text-xs"><i class="fa-solid fa-plus"></i></button>
+                    <button onclick="toggleBrowserFullscreen()" class="w-7 h-7 rounded-full hover:bg-slate-800 flex items-center justify-center text-xs text-emerald-400"><i class="fa-solid fa-expand"></i></button>
+                </div>
+
+                <div class="fixed right-3 top-1/2 -translate-y-1/2 z-[5100] flex items-center gap-2">
+                    <div class="flex flex-col items-center gap-1.5 p-1.5 rounded-full bg-slate-900/95 backdrop-blur-2xl border border-slate-700 shadow-2xl">
+                        <button onclick="toggleSbDrawer()" class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-sliders"></i></button>
+                        <button onclick="setSbTool('pen')" id="sb-tool-pen" class="sb-tool-btn w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-pen-nib"></i></button>
+                        <button onclick="setSbTool('highlighter')" id="sb-tool-highlighter" class="sb-tool-btn w-9 h-9 rounded-full text-yellow-400 hover:bg-slate-800 flex items-center justify-center text-xs"><i class="fa-solid fa-highlighter"></i></button>
+                        <button onclick="setSbTool('laser')" id="sb-tool-laser" class="sb-tool-btn w-9 h-9 rounded-full text-rose-400 hover:bg-slate-800 flex items-center justify-center text-xs"><i class="fa-solid fa-wand-magic-sparkles"></i></button>
+                        <button onclick="setSbTool('eraser')" id="sb-tool-eraser" class="sb-tool-btn w-9 h-9 rounded-full text-slate-300 hover:bg-slate-800 flex items-center justify-center text-xs"><i class="fa-solid fa-eraser"></i></button>
+                        <button onclick="sbUndo()" class="w-9 h-9 rounded-full text-slate-300 hover:bg-slate-800 flex items-center justify-center text-xs"><i class="fa-solid fa-rotate-right"></i></button>
+                        <button onclick="sbRedo()" class="w-9 h-9 rounded-full text-slate-300 hover:bg-slate-800 flex items-center justify-center text-xs"><i class="fa-solid fa-rotate-left"></i></button>
+                    </div>
+
+                    <div id="sb-pro-drawer" class="hidden flex-col gap-3 p-4 rounded-3xl bg-slate-900/95 backdrop-blur-2xl border border-slate-700 shadow-2xl w-64 text-white">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-black text-amber-400">استوديو السبورة</span>
+                            <button onclick="toggleSbDrawer()" class="text-slate-400 text-xs"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <div class="flex items-center justify-between gap-1.5">
+                            <button onclick="setSbColor('#ffffff')" class="w-6 h-6 rounded-full bg-white border border-slate-500"></button>
+                            <button onclick="setSbColor('#ef4444')" class="w-6 h-6 rounded-full bg-red-500"></button>
+                            <button onclick="setSbColor('#f59e0b')" class="w-6 h-6 rounded-full bg-amber-500"></button>
+                            <button onclick="setSbColor('#10b981')" class="w-6 h-6 rounded-full bg-emerald-500"></button>
+                            <button onclick="setSbColor('#38bdf8')" class="w-6 h-6 rounded-full bg-sky-400"></button>
+                            <input type="color" value="#38bdf8" oninput="setSbColor(this.value)" class="w-6 h-6 rounded-full bg-transparent border-0 cursor-pointer">
+                        </div>
+                        <select onchange="setSbBackground(this.value)" class="w-full bg-slate-800 border border-slate-700 text-white text-xs font-bold rounded-xl px-2.5 py-2">
+                            <option value="dark">⬛ سبورة سوداء</option>
+                            <option value="white">⬜ سبورة بيضاء</option>
+                            <option value="green">🟩 سبورة خضراء</option>
+                            <option value="grid">🕸️ شبكة مربعات</option>
+                            <option value="lines">📝 مسطرة</option>
+                        </select>
+                        <div class="grid grid-cols-2 gap-1.5">
+                            <button onclick="sbClear()" class="py-2 rounded-xl bg-red-600/20 text-red-400 text-xs font-bold">مسح</button>
+                            <button onclick="sbDownload()" class="py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold">حفظ PNG</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SECTION 7: GOD-MODE ADMIN / DEVELOPER COMMAND CENTER                  -->
+        <!-- ===================================================================== -->
+        <section id="page-developer" class="page-section space-y-6">
+            <div class="bg-secondary border-2 border-amber-500/70 rounded-3xl p-5 sm:p-8 shadow-2xl space-y-6">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-borderCol pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 text-slate-950 flex items-center justify-center text-2xl font-black shadow-lg">
+                            <i class="fa-solid fa-crown"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-black text-amber-400">مركز قيادة المشرف والمطور (سهلتهالك بخطوه)</h2>
+                            <p class="text-xs text-textMuted">إضافة فيديوهات وصور وروابط + التخزين السحابي والتحديث الشامل + الرد على الدعم الفني + إشعارات 01050489662</p>
+                        </div>
+                    </div>
+                    <button onclick="saveAndApplyDevConfig()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs sm:text-sm shadow-lg transition flex items-center gap-2">
+                        <i class="fa-solid fa-floppy-disk"></i> حفظ وتعميم التعديلات
+                    </button>
+                </div>
+
+                <!-- Admin Navigation Tabs -->
+                <div class="flex flex-wrap gap-2 bg-primary p-2 rounded-2xl border border-borderCol">
+                    <button onclick="switchDevTab('media')" id="devtab-media" class="devtab-btn px-4 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-black text-xs transition">
+                        <i class="fa-solid fa-photo-film ml-1"></i> إضافة فيديوهات وصور وروابط
+                    </button>
+                    <button onclick="switchDevTab('cloud')" id="devtab-cloud" class="devtab-btn px-4 py-2.5 rounded-xl text-textMain hover:bg-card font-extrabold text-xs transition">
+                        <i class="fa-solid fa-cloud-arrow-up ml-1 text-sky-400"></i> التخزين السحابي والتحديث الشامل
+                    </button>
+                    <button onclick="switchDevTab('pdfupload')" id="devtab-pdfupload" class="devtab-btn px-4 py-2.5 rounded-xl text-textMain hover:bg-card font-extrabold text-xs transition">
+                        <i class="fa-solid fa-file-pdf ml-1 text-rose-400"></i> رفع الكتب والتقييمات PDF
+                    </button>
+                    <button onclick="switchDevTab('supportmgr')" id="devtab-supportmgr" class="devtab-btn px-4 py-2.5 rounded-xl text-textMain hover:bg-card font-extrabold text-xs transition">
+                        <i class="fa-solid fa-headset ml-1 text-emerald-400"></i> إدارة بلاغات الدعم الفني
+                    </button>
+                    <button onclick="switchDevTab('curriculum')" id="devtab-curriculum" class="devtab-btn px-4 py-2.5 rounded-xl text-textMain hover:bg-card font-extrabold text-xs transition">
+                        <i class="fa-solid fa-book-medical ml-1"></i> إضافة دروس واختبارات
+                    </button>
+                    <button onclick="switchDevTab('branding')" id="devtab-branding" class="devtab-btn px-4 py-2.5 rounded-xl text-textMain hover:bg-card font-extrabold text-xs transition">
+                        <i class="fa-solid fa-sliders ml-1"></i> الهوية وإشعارات 01050489662
+                    </button>
+                </div>
+
+                <!-- TAB 1: ADD VIDEOS, IMAGES & LINKS TO ANY SUBJECT -->
+                <div id="devpanel-media" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 p-5 rounded-2xl bg-primary border border-amber-500/40 space-y-3.5">
+                        <h3 class="font-black text-base text-amber-400"><i class="fa-solid fa-circle-plus ml-1"></i> إضافة فيديو أو صورة أو رابط لأي مادة</h3>
+
+                        <div>
+                            <label class="block text-xs font-bold mb-1">اختر المادة المستهدفة</label>
+                            <select id="admin-media-subject" class="w-full bg-card border border-borderCol rounded-xl px-3 py-2.5 text-xs font-bold"></select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold mb-1">نوع المحتوى المضاف</label>
+                            <select id="admin-media-type" onchange="toggleAdminMediaFields()" class="w-full bg-card border border-borderCol rounded-xl px-3 py-2.5 text-xs font-bold">
+                                <option value="video">🎬 فيديو شرح (رابط يوتيوب أو فيديو مباشر)</option>
+                                <option value="image">🖼️ صورة توضيحية أو ملخص (رفع من الجهاز أو رابط)</option>
+                                <option value="link">🔗 رابط خارجي / جوجل درايف / اختبار</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold mb-1">عنوان الفيديو / الصورة / الرابط</label>
+                            <input type="text" id="admin-media-title" placeholder="مثال: ملخص قوانين الفصل الأول بالصور" class="w-full bg-card border border-borderCol rounded-xl px-3 py-2.5 text-xs">
+                        </div>
+
+                        <div id="admin-media-url-box">
+                            <label class="block text-xs font-bold mb-1">الرابط (URL)</label>
+                            <input type="url" id="admin-media-url" placeholder="https://..." class="w-full bg-card border border-borderCol rounded-xl px-3 py-2.5 text-xs" dir="ltr">
+                        </div>
+
+                        <div id="admin-media-file-box" class="hidden">
+                            <label class="block text-xs font-bold mb-1">أو اختر صورة مباشرة من جهازك</label>
+                            <input type="file" id="admin-media-file" accept="image/*" class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-xs">
+                        </div>
+
+                        <button type="button" onclick="adminAddMediaResource()" class="w-full py-3 rounded-2xl bg-gradient-to-l from-amber-500 to-orange-500 text-slate-950 font-black text-xs shadow-lg hover:brightness-110 transition">
+                            <i class="fa-solid fa-cloud-arrow-up ml-1"></i> نشر المحتوى في المادة فوراً
+                        </button>
+                    </div>
+
+                    <div class="lg:col-span-7 p-5 rounded-2xl bg-primary border border-borderCol space-y-3">
+                        <h3 class="font-black text-base text-textMain">الفيديوهات والصور والروابط المضافة للمواد</h3>
+                        <div id="admin-media-list" class="space-y-2.5 max-h-[440px] overflow-y-auto"></div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: CLOUD STORAGE SYNC & GLOBAL PLATFORM UPDATE SYSTEM -->
+                <div id="devpanel-cloud" class="hidden grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-5 rounded-2xl bg-primary border border-sky-500/40 space-y-4">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-xl"><i class="fa-solid fa-cloud"></i></div>
+                            <div>
+                                <h3 class="font-black text-base text-sky-400">نظام التخزين السحابي والنسخ الاحتياطي</h3>
+                                <p class="text-xs text-textMuted">مزامنة فورية بين جميع النوافذ + تصدير واستيراد قاعدة البيانات السحابية بالكامل</p>
+                            </div>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-card border border-borderCol text-xs space-y-1">
+                            <div class="flex justify-between"><span>حالة السحابة:</span><span class="text-emerald-400 font-black">متصل ونشط (Cloud Sync Active)</span></div>
+                            <div class="flex justify-between"><span>آخر مزامنة:</span><span id="cloud-last-sync-time" class="font-mono text-amber-400">الآن</span></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2.5">
+                            <button type="button" onclick="exportCloudBackupJson()" class="py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-black text-xs flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> تصدير نسخة سحابية
+                            </button>
+                            <label class="py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer">
+                                <i class="fa-solid fa-upload"></i> استيراد نسخة سحابية
+                                <input type="file" accept=".json" onchange="importCloudBackupJson(this.files[0])" class="sr-only">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-primary border border-rose-500/40 space-y-4">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl"><i class="fa-solid fa-rocket"></i></div>
+                            <div>
+                                <h3 class="font-black text-base text-rose-400">نظام التحديث الشامل للمنصة (OTA Update)</h3>
+                                <p class="text-xs text-textMuted">أصدر تحديثاً رسمياً جديداً ليظهر إشعار التحديث ورقم الإصدار لكل الطلاب فوراً</p>
+                            </div>
+                        </div>
+                        <input type="text" id="ota-version-inp" value="V7.5 PRO" placeholder="رقم الإصدار (مثال: V7.5)" class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-xs font-mono font-black">
+                        <textarea id="ota-changelog-inp" rows="3" placeholder="اكتب مميزات التحديث الجديد للطلاب..." class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-xs"></textarea>
+                        <button type="button" onclick="pushGlobalPlatformUpdate()" class="w-full py-3 rounded-xl bg-gradient-to-l from-rose-600 to-amber-500 text-white font-black text-xs shadow-lg">
+                            <i class="fa-solid fa-tower-broadcast ml-1"></i> إطلاق التحديث الشامل لجميع الطلاب الآن
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TAB 3: PDF UPLOADER -->
+                <div id="devpanel-pdfupload" class="hidden grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 p-5 rounded-2xl bg-primary border border-rose-500/40 space-y-3">
+                        <h3 class="font-black text-base text-rose-400">رفع كتب المدرسة والتقييمات (PDF)</h3>
+                        <select id="dev-pdf-category" class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-xs font-bold">
+                            <option value="book">📘 كتاب المدرسة</option>
+                            <option value="assessment">📝 تقييم أسبوعي</option>
+                        </select>
+                        <select id="dev-pdf-subject" class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-xs font-bold"></select>
+                        <div class="p-5 rounded-2xl border-2 border-dashed border-amber-500 bg-card text-center">
+                            <input type="file" id="dev-pdf-files-input" accept=".pdf,application/pdf" multiple onchange="handlePdfFileSelection(this.files)" class="sr-only">
+                            <label for="dev-pdf-files-input" class="cursor-pointer block space-y-1">
+                                <i class="fa-solid fa-file-circle-plus text-2xl text-amber-400"></i>
+                                <div class="text-xs font-black text-amber-400">اضغط لاختيار ملفات PDF</div>
+                                <div id="selected-pdf-files-status" class="text-[11px] text-textMuted">متعدد الملفات</div>
+                            </label>
+                        </div>
+                        <button type="button" onclick="uploadQueuedPdfFiles()" class="w-full py-2.5 rounded-xl bg-rose-600 text-white font-black text-xs">رفع ونشر الملفات</button>
+                    </div>
+                    <div class="lg:col-span-7 p-5 rounded-2xl bg-primary border border-borderCol space-y-2">
+                        <h3 class="font-black text-sm text-amber-400">الملفات المنشورة</h3>
+                        <div id="dev-pdf-manage-list" class="space-y-2 max-h-96 overflow-y-auto"></div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: ADMIN SUPPORT TICKET MANAGER -->
+                <div id="devpanel-supportmgr" class="hidden grid-cols-1 gap-4">
+                    <div class="p-5 rounded-2xl bg-primary border border-borderCol space-y-3">
+                        <h3 class="font-black text-base text-emerald-400">تذاكر وبلاغات الطلاب الواردة للدعم الفني</h3>
+                        <div id="admin-tickets-list" class="space-y-3"></div>
+                    </div>
+                </div>
+
+                <!-- TAB 5: CURRICULUM BUILDER -->
+                <div id="devpanel-curriculum" class="hidden grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 p-4 rounded-2xl bg-primary border border-borderCol space-y-2.5">
+                        <h4 class="font-black text-sm text-amber-400">+ إضافة درس جديد + سؤال اختبار</h4>
+                        <select id="cms-sub-select" onchange="populateCmsUnits()" class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-xs"></select>
+                        <select id="cms-unit-select" class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-xs"></select>
+                        <input type="text" id="cms-lesson-title" placeholder="عنوان الدرس..." class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-xs">
+                        <input type="text" id="cms-lesson-video" placeholder="رابط فيديو يوتيوب (اختياري)..." class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-xs" dir="ltr">
+                        <textarea id="cms-lesson-body" rows="3" placeholder="نص شرح الدرس الكامل..." class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-xs"></textarea>
+                        <input type="text" id="cms-quiz-q" placeholder="سؤال اختيار من متعدد (اختياري)..." class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-xs">
+                        <input type="text" id="cms-quiz-opts" placeholder="الخيارات مفصولة بفاصلة (مثال: أ، ب، ج، د)" class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-xs">
+                        <button onclick="cmsAddLesson()" class="w-full py-2.5 rounded-xl bg-amber-500 text-slate-950 font-black text-xs">حفظ ونشر الدرس</button>
+                    </div>
+                    <div class="lg:col-span-7 p-4 rounded-2xl bg-primary border border-borderCol space-y-2">
+                        <h4 class="font-black text-sm text-textMain">هيكل المنهج الحالي</h4>
+                        <div id="cms-curriculum-tree" class="space-y-2 max-h-96 overflow-y-auto"></div>
+                    </div>
+                </div>
+
+                <!-- TAB 6: BRANDING & 01050489662 ALERTS -->
+                <div id="devpanel-branding" class="hidden grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-5 rounded-2xl bg-primary border border-borderCol space-y-3">
+                        <h3 class="font-black text-base text-amber-400">هوية المنصة والصيانة</h3>
+                        <input type="text" id="dev-inp-brand" value="سهلتهالك بخطوه" class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-sm">
+                        <input type="text" id="dev-inp-footer" value="عمل وتطوير تيم القدوه Hassanelngar" class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-sm">
+                        <label class="flex items-center justify-between p-3 rounded-xl bg-card border border-borderCol">
+                            <span class="text-xs font-bold text-rose-400">تفعيل وضع الصيانة</span>
+                            <input type="checkbox" id="dev-tog-maintenance" class="w-4 h-4 accent-rose-500">
+                        </label>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-primary border border-emerald-500/40 space-y-3">
+                        <h3 class="font-black text-base text-emerald-400">إشعارات المشرف للرقم 01050489662</h3>
+                        <input type="tel" id="dev-admin-phone" value="01050489662" class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-xs font-mono" dir="ltr">
+                        <input type="url" id="dev-admin-webhook" placeholder="رابط Webhook (اختياري)" class="w-full bg-card border border-borderCol rounded-xl px-3 py-2 text-xs" dir="ltr">
+                        <button type="button" onclick="triggerAdminTelemetryAlert({ name: 'اختبار المشرف', role: 'مشرف', stuPhone: '01050489662', parentPhone: '-', method: 'اختبار مباشر', timeStr: new Date().toLocaleString('ar-EG') }, true)" class="w-full py-2.5 rounded-xl bg-emerald-600 text-white font-black text-xs">
+                            إرسال رسالة واتساب تجريبية إلى 01050489662
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==================== AUTHENTICATION MODAL ==================== -->
+    <div id="auth-modal" class="fixed inset-0 z-[9800] hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
+        <div class="bg-secondary border border-borderCol rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-5 relative">
+            <button onclick="closeAuthModal()" class="absolute top-4 left-4 w-8 h-8 rounded-full bg-card hover:bg-rose-600 hover:text-white flex items-center justify-center text-xs transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center space-y-1">
+                <h3 class="text-xl font-black text-textMain">بوابة الدخول • سهلتهالك بخطوه</h3>
+                <p class="text-xs text-textMuted">اختر نوع الحساب للمتابعة</p>
+            </div>
+
+            <div class="grid grid-cols-3 gap-1.5 bg-primary p-1.5 rounded-2xl border border-borderCol text-xs font-black">
+                <button onclick="switchAuthRole('student')" id="role-tab-student" class="py-2 rounded-xl bg-accent text-white transition">طالب</button>
+                <button onclick="switchAuthRole('teacher')" id="role-tab-teacher" class="py-2 rounded-xl text-textMuted hover:text-textMain transition">معلم</button>
+                <button onclick="switchAuthRole('developer')" id="role-tab-developer" class="py-2 rounded-xl text-textMuted hover:text-textMain transition">مشرف / مطور</button>
+            </div>
+
+            <!-- STUDENT FORM -->
+            <div id="auth-form-student" class="space-y-3">
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="socialStudentLogin('Google')" class="py-2.5 px-3 rounded-xl bg-card hover:bg-borderCol border border-borderCol text-xs font-extrabold flex items-center justify-center gap-2 transition">
+                        <i class="fa-brands fa-google text-rose-500"></i> Google
+                    </button>
+                    <button onclick="socialStudentLogin('Facebook')" class="py-2.5 px-3 rounded-xl bg-card hover:bg-borderCol border border-borderCol text-xs font-extrabold flex items-center justify-center gap-2 transition">
+                        <i class="fa-brands fa-facebook text-blue-500"></i> Facebook
+                    </button>
+                </div>
+                <input type="text" id="stu-name-inp" placeholder="اسم الطالب ثلاثي" class="w-full bg-primary border border-borderCol rounded-xl px-3.5 py-2.5 text-xs">
+                <input type="tel" id="stu-phone-inp" placeholder="رقم هاتف الطالب (01xxxxxxxxx)" class="w-full bg-primary border border-borderCol rounded-xl px-3.5 py-2.5 text-xs" dir="ltr">
+                <input type="tel" id="stu-parent-inp" placeholder="رقم هاتف ولي الأمر (إلزامي)" class="w-full bg-primary border border-borderCol rounded-xl px-3.5 py-2.5 text-xs" dir="ltr">
+
+                <div id="otp-verify-box" class="hidden space-y-2 pt-1">
+                    <input type="text" id="stu-otp-inp" maxlength="6" placeholder="أدخل كود التحقق المكون من 6 أرقام" class="w-full bg-primary border-2 border-emerald-500 rounded-xl px-3.5 py-2.5 text-center font-mono font-black tracking-widest text-sm">
+                    <button onclick="verifyStudentOtp()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs">تأكيد الكود والدخول</button>
+                </div>
+
+                <button id="send-otp-btn" onclick="sendStudentSmsOtp()" class="w-full py-3 rounded-xl bg-accent hover:brightness-110 text-white font-black text-xs shadow-lg transition">
+                    إرسال رسالة التحقق SMS للهاتف
+                </button>
+            </div>
+
+            <!-- TEACHER FORM -->
+            <div id="auth-form-teacher" class="hidden space-y-3">
+                <input type="text" id="teacher-name-inp" placeholder="اسم المعلم" class="w-full bg-primary border border-borderCol rounded-xl px-3.5 py-2.5 text-xs">
+                <button onclick="loginTeacher()" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs shadow-lg transition">
+                    دخول لوحة المعلم
+                </button>
+            </div>
+
+            <!-- DEVELOPER FORM -->
+            <div id="auth-form-developer" class="hidden space-y-3">
+                <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-300 font-bold text-center">
+                    صلاحيات المشرف والمطور — تيم القدوه (Hassanelngar)
+                </div>
+                <input type="password" id="dev-pass-inp" placeholder="كلمة مرور المطور" class="w-full bg-primary border border-borderCol rounded-xl px-3.5 py-2.5 text-xs" dir="ltr">
+                <input type="password" id="dev-code-inp" placeholder="كود المطور" class="w-full bg-primary border border-borderCol rounded-xl px-3.5 py-2.5 text-xs" dir="ltr">
+                <button onclick="loginDeveloper()" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs shadow-lg transition">
+                    تفعيل لوحة تحكم المشرف
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== FIXED FOOTER WITH MANDATORY DEVELOPER CREDIT ==================== -->
+    <footer class="bg-secondary border-t border-borderCol py-5 px-4 mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-right">
+            <div class="space-y-0.5">
+                <div class="font-black text-sm text-textMain">منصة سهلتهالك بخطوه • الصف الأول الثانوي (الترم الأول)</div>
+                <div class="text-xs text-textMuted">جميع الحقوق محفوظة © 2026 — نظام سحابي متكامل</div>
+            </div>
+            <div class="px-5 py-2.5 rounded-2xl bg-gradient-to-l from-amber-500/15 to-indigo-500/15 border border-amber-500/40 shadow-sm">
+                <span id="cms-footer-credit" class="text-xs sm:text-sm font-black text-transparent bg-clip-text bg-gradient-to-l from-amber-400 to-indigo-400">
+                    عمل وتطوير تيم القدوه Hassanelngar
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== APPLICATION LOGIC ==================== -->
+    <script>
+        /* ============================================================================
+           1. INDEXED-DB STORAGE FOR PDF FILES
+           ============================================================================ */
+        const DB_NAME = 'SahaltahalakPdfDB_V7';
+        const DB_STORE = 'pdf_files_store';
+
+        function openPdfDB() {
+            return new Promise((resolve, reject) => {
+                const req = indexedDB.open(DB_NAME, 1);
+                req.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains(DB_STORE)) db.createObjectStore(DB_STORE, { keyPath: 'id' });
+                };
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => reject(req.error);
+            });
+        }
+        async function savePdfItemToDB(item) {
+            const db = await openPdfDB();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction(DB_STORE, 'readwrite');
+                tx.objectStore(DB_STORE).put(item);
+                tx.oncomplete = () => resolve(true);
+                tx.onerror = () => reject(tx.error);
+            });
+        }
+        async function getAllPdfsFromDB() {
+            const db = await openPdfDB();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction(DB_STORE, 'readonly');
+                const req = tx.objectStore(DB_STORE).getAll();
+                req.onsuccess = () => resolve(req.result || []);
+                req.onerror = () => reject(req.error);
+            });
+        }
+
+        const BUILTIN_PDF_DOCS = [
+            {
+                id: 'builtin_sci_book',
+                title: 'كتاب الوزارة: العلوم المتكاملة (الصف الأول الثانوي - الترم الأول)',
+                subjectName: 'العلوم المتكاملة (السفاحي 🔥)',
+                category: 'book',
+                isBuiltin: true,
+                pages: [
+                    {
+                        heading: 'الفصل الأول: النظام البيئي المائي — كتاب الوزارة الرسمي',
+                        lines: [
+                            '• يغطي الماء نحو 70% من مساحة سطح الكرة الأرضية ويمثل الغلاف المائي.',
+                            '• الزاوية بين الرابطتين التساهميتين في جزيء الماء (H₂O) تساوي 104.5°.',
+                            '• تصل كثافة الماء النقي إلى أقصى قيمة لها (1 g/cm³) عند درجة حرارة 4°C.'
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'builtin_hist_eval',
+                title: 'التقييم الأسبوعي الأول — التاريخ والحضارة الفرعونية',
+                subjectName: 'التاريخ (التصميم الفرعوني 𓂀)',
+                category: 'assessment',
+                isBuiltin: true,
+                pages: [
+                    {
+                        heading: 'أسئلة التقييم الأسبوعي — الحضارة والتاريخ',
+                        lines: [
+                            'س1: وضح مفهوم الحضارة عند المؤرخ الأمريكي ول ديورانت وعلاقتها بالاستقرار والأمن.',
+                            'س2: قارن بين المصادر الأولية والمصادر الثانوية لدراسة الحضارات القديمة.'
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        /* ============================================================================
+           2. SUBJECTS WITH CUSTOM ATMOSPHERES & DEDICATED SUBJECT ASSISTANTS
+           ============================================================================ */
+        const DEFAULT_CURRICULUM = [
+            {
+                id: 'sciences',
+                name: 'العلوم المتكاملة (السفاحي 🔥)',
+                shortDesc: 'مختبر السفاحي المشتعل: النظام البيئي المائي والغلاف الجوي وخصائص الماء الفيزيائية والكيميائية.',
+                icon: 'fa-fire-flame-curved',
+                themeClass: 'theme-saffahi',
+                cardAccent: 'border-red-500/60',
+                badge: 'وضع السفاحي الأسطوري 🔥',
+                assistantName: 'مساعد السفاحي في العلوم 🧪',
+                assistantGreeting: 'أهلاً بك يا بطل في مختبر السفاحي! اسألني في كيمياء الماء، الروابط الهيدروجينية، الكثافة، أو الغلاف الجوي.',
+                assistantTips: [
+                    'تذكر قاعدة السفاحي الذهبية: أقصى كثافة للماء النقي = 1 g/cm³ عند 4°C، والزاوية في جزيء الماء = 104.5°.',
+                    'سؤال امتحان متوقع: علل يطفو الجليد فوق سطح الماء؟ الإجابة: لأن كثافة الجليد أقل من كثافة الماء السائل بسبب الروابط الهيدروجينية وتكون بلورات سداسية ذات فراغات.'
+                ],
+                units: [
+                    {
+                        unitName: 'الفصل الأول: النظام البيئي المائي',
+                        lessons: [
+                            {
+                                title: 'الدرس الأول: التركيب الكيميائي للماء والروابط الهيدروجينية',
+                                subtitle: 'القطبية، الزاوية 104.5°، وشذوذ الخواص',
+                                videoUrl: 'https://www.youtube.com/embed/HVT3Y3_gHGg?rel=0',
+                                visualSVG: `<svg viewBox="0 0 420 165" class="w-full max-w-md mx-auto"><rect width="420" height="165" rx="16" fill="#2b0606" stroke="#ef4444" stroke-width="2"/><circle cx="210" cy="60" r="28" fill="#dc2626"/><text x="210" y="66" text-anchor="middle" fill="#fff" font-weight="bold" font-size="15">O (δ-)</text><line x1="186" y1="80" x2="145" y2="118" stroke="#fbbf24" stroke-width="4"/><line x1="234" y1="80" x2="275" y2="118" stroke="#fbbf24" stroke-width="4"/><circle cx="135" cy="126" r="19" fill="#38bdf8"/><text x="135" y="131" text-anchor="middle" fill="#0f172a" font-weight="bold" font-size="13">H+</text><circle cx="285" cy="126" r="19" fill="#38bdf8"/><text x="285" y="131" text-anchor="middle" fill="#0f172a" font-weight="bold" font-size="13">H+</text><text x="210" y="108" text-anchor="middle" fill="#fde047" font-size="12" font-weight="bold">زاوية 104.5° • طاقة السفاحي</text></svg>`,
+                                body: `<div class="textbook-callout"><strong>🔥 كبسولة السفاحي النارية:</strong> يغطي الماء نحو 70% من سطح الكرة الأرضية، وهو سر استمرار الحياة في الغلاف المائي.</div><h3><i class="fa-solid fa-flask"></i> التركيب الجزيئي للماء (H₂O)</h3><p>يتكون جزيء الماء من ارتباط ذرة أكسجين بذرتي هيدروجين برابطتين تساهميتين أحاديتين تحصران زاوية <strong>104.5°</strong>، وتنشأ بين جزيئاته <strong>روابط هيدروجينية</strong> ترفع درجة غليانه إلى 100°C.</p>`,
+                                quiz: [
+                                    { q: 'ما مقدار الزاوية بين الرابطتين التساهميتين في جزيء الماء؟', options: ['109.5°', '104.5°', '120°', '180°'], ans: 1 },
+                                    { q: 'يصل الماء النقي إلى أقصى كثافة له عند درجة حرارة:', options: ['0°C', '4°C', '25°C', '100°C'], ans: 1 }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'history',
+                name: 'التاريخ (التصميم الفرعوني 𓂀)',
+                shortDesc: 'بوابة الحضارة المصرية القديمة: الحضارة والتاريخ ومصادر دراسة الحضارات.',
+                icon: 'fa-ankh',
+                themeClass: 'theme-pharaonic',
+                cardAccent: 'border-yellow-500/60',
+                badge: 'ملوك الفراعنة 𓇳',
+                assistantName: 'حكيم التاريخ الفرعوني 𓂀',
+                assistantGreeting: 'مرحباً بك في معبد التاريخ! اسألني عن مفهوم الحضارة، ول ديورانت، أو الفرق بين المصادر الأولية والثانوية.',
+                assistantTips: [
+                    'يرى ول ديورانت أن الحضارة تبدأ حيث ينتهي الاضطراب والقلق ويستقر الإنسان.',
+                    'المصادر الأولية مثل الآثار والنقوش والبرديات أكثر دقة لأنها عاصرت الحدث.'
+                ],
+                units: [
+                    {
+                        unitName: 'الوحدة الأولى: مدخل لدراسة الحضارات',
+                        lessons: [
+                            {
+                                title: 'الدرس الأول: الحضارة والتاريخ',
+                                subtitle: 'مفهوم الحضارة وانتقالها عبر العصور',
+                                videoUrl: '',
+                                visualSVG: `<div class="p-4 rounded-2xl bg-yellow-950/60 border border-yellow-500 text-center text-yellow-300 font-black text-sm">𓂀 𓆣 انتقلت الحضارة من الشرق (مصر والعراق) إلى الغرب (اليونان والرومان) ثم عادت للشرق الإسلامي 𓋹 𓇳</div>`,
+                                body: `<h3><i class="fa-solid fa-landmark"></i> مفهوم الحضارة والتاريخ</h3><p><strong>الحضارة:</strong> هي ثمرة أي مجهود يقوم به الإنسان نتيجة تفاعله مع البيئة لتحسين ظروف حياته مادياً ومعنوياً.</p>`,
+                                quiz: [{ q: 'ربط المؤرخ ول ديورانت بين نشأة الحضارة ووجود:', options: ['الوفرة المعدنية', 'الاستقرار والأمن', 'كثرة السكان', 'الموقع البحري'], ans: 1 }]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'arabic',
+                name: 'اللغة العربية (الزخرفة الأصيلة)',
+                shortDesc: 'ديوان العربية: النحو، البلاغة، الأدب الجاهلي، والنصوص المتحررة.',
+                icon: 'fa-feather-pointed',
+                themeClass: 'theme-arabic',
+                cardAccent: 'border-emerald-500/60',
+                badge: 'ديوان العرب ✨',
+                assistantName: 'نحويّ وأديب العربية 🖋️',
+                assistantGreeting: 'أهلاً بك في رحاب لغة الضاد! اسألني في إعراب كان التامة والناقصة، كاد وأخواتها، أو التشبيه.',
+                assistantTips: [
+                    'إذا اكتفت (كان) بمرفوعها وكانت بمعنى (وُجد أو تحقق) فهي تامة وما بعدها يُعرب فاعلاً.',
+                    'خبر كاد وأخواتها لا يأتي إلا جملة فعلية فعلها مضارع.'
+                ],
+                units: [
+                    {
+                        unitName: 'الوحدة الأولى: النحو والبلاغة',
+                        lessons: [
+                            {
+                                title: 'الأفعال الناقصة والتامة (كان وأخواتها)',
+                                subtitle: 'الفرق الدقيق في الإعراب والمعنى',
+                                videoUrl: '',
+                                visualSVG: '',
+                                body: `<h3><i class="fa-solid fa-pen-fancy"></i> القاعدة النحوية</h3><p>تأتي <strong>كان وأخواتها</strong> تامةً إذا اكتفت بمرفوعها (الفاعل) ولم تحتج إلى خبر، مثل: <em>"اتقِ الله حيثما كنتَ"</em>.</p>`,
+                                quiz: [{ q: 'في جملة "اجتهد الطالب فكان النجاح"، تُعرب كلمة (النجاح):', options: ['اسم كان مرفوع', 'خبر كان منصوب', 'فاعل مرفوع', 'مفعول به'], ans: 2 }]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'english',
+                name: 'اللغة الإنجليزية (Royal London)',
+                shortDesc: 'New Hello! Term 1 — British Academy Grammar, Vocabulary & Reading.',
+                icon: 'fa-crown',
+                themeClass: 'theme-english',
+                cardAccent: 'border-rose-500/60',
+                badge: 'British Edition 🇬🇧',
+                assistantName: 'London Grammar Tutor 🇬🇧',
+                assistantGreeting: 'Welcome to the Royal English Academy! Ask me about Past Simple, Past Continuous, or Unit 1 vocabulary.',
+                assistantTips: [
+                    'Use Past Continuous (was/were + V-ing) for an ongoing action interrupted by a Past Simple action.',
+                    'Example: While I was studying, the phone rang.'
+                ],
+                units: [
+                    {
+                        unitName: 'Unit 1: Getting Away',
+                        lessons: [
+                            {
+                                title: 'Grammar: Past Simple vs. Past Continuous',
+                                subtitle: 'Time Connectors (While / When / As)',
+                                videoUrl: '',
+                                visualSVG: '',
+                                body: `<h3><i class="fa-solid fa-book"></i> Grammar Rule</h3><p dir="ltr" class="text-left font-bold">While / As + Past Continuous (was/were + V-ing) , Past Simple (V2).</p>`,
+                                quiz: [{ q: 'While I .......... my homework, the telephone rang.', options: ['did', 'was doing', 'am doing', 'have done'], ans: 1 }]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'math',
+                name: 'الرياضيات (الهندسة الرقمية)',
+                shortDesc: 'الأعداد المركبة، المعادلات التربيعية، تشابه المضلعات، وحساب المثلثات.',
+                icon: 'fa-square-root-variable',
+                themeClass: 'theme-math',
+                cardAccent: 'border-sky-500/60',
+                badge: 'Cyber Geometry 📐',
+                assistantName: 'مساعد الخوارزمي للرياضيات 📐',
+                assistantTips: [
+                    'ت² = -1 ، ت³ = -ت ، ت⁴ = 1. لقسمة أي أس للعدد (ت) اقسم الأس على 4 وانظر للباقي.',
+                    'في المعادلة أ س² + ب س + جـ = 0 : مجموع الجذرين = -ب/أ وحاصل ضربهما = جـ/أ.'
+                ],
+                assistantGreeting: 'أهلاً بك في مختبر الرياضيات! اسألني في قوى العدد التخيلي (ت) أو تشابه المثلثات.',
+                units: [
+                    {
+                        unitName: 'الوحدة الأولى: الجبر',
+                        lessons: [
+                            {
+                                title: 'مقدمة في الأعداد المركبة (Complex Numbers)',
+                                subtitle: 'العدد التخيلي ت وقوى ت الصحيحة',
+                                videoUrl: '',
+                                visualSVG: '',
+                                body: `<h3><i class="fa-solid fa-infinity"></i> العدد التخيلي (ت)</h3><p>حيث <strong>ت² = -1</strong> ، وتُكتب صورة العدد المركب على الشكل <strong>أ + ب ت</strong>.</p>`,
+                                quiz: [{ q: 'أبسط صورة للمقدار ت²² هي:', options: ['1', '-1', 'ت', '-ت'], ans: 1 }]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'philosophy',
+                name: 'الفلسفة والمنطق (الحكمة اليونانية)',
+                shortDesc: 'مبادئ التفكير الفلسفي، خصائص التفكير الإنساني، وأساليب التفكير.',
+                icon: 'fa-brain',
+                themeClass: 'theme-philosophy',
+                cardAccent: 'border-purple-500/60',
+                badge: 'أكاديمية الحكمة 🏛️',
+                assistantName: 'فيلسوف المنصة 🏛️',
+                assistantGreeting: 'مرحباً بك في رواق الحكمة! اسألني عن الفرق بين الأسلوب العلمي والفلسفي والخرافي.',
+                assistantTips: [
+                    'الأسلوب العلمي يبحث عن العلل القريبة المباشرة، بينما الأسلوب الفلسفي يبحث عن العلل البعيدة الشاملة.'
+                ],
+                units: [
+                    {
+                        unitName: 'الوحدة الأولى: مبادئ التفكير الفلسفي',
+                        lessons: [
+                            {
+                                title: 'التفكير الإنساني وأساليبه',
+                                subtitle: 'خصائص التفكير الإنساني',
+                                videoUrl: '',
+                                visualSVG: '',
+                                body: `<h3><i class="fa-solid fa-lightbulb"></i> أساليب التفكير</h3><p>يتميز التفكير الإنساني بأنه نشاط عقلي غير مرئي وإدراك للقوانين العامة للموجودات.</p>`,
+                                quiz: [{ q: 'الأسلوب الذي يبحث عن العلل القريبة المباشرة هو الأسلوب:', options: ['الخرافي', 'الفلسفي', 'العلمي', 'الديني'], ans: 2 }]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'french',
+                name: 'اللغة الفرنسية (باريس وبرج إيفل)',
+                shortDesc: 'Club @dos plus 1 — Se présenter et les verbes du 1er groupe.',
+                icon: 'fa-earth-europe',
+                themeClass: 'theme-french',
+                cardAccent: 'border-rose-400/60',
+                badge: 'Paris Edition 🇫🇷',
+                assistantName: 'Professeur de Paris 🇫🇷',
+                assistantGreeting: 'Bonjour ! اسألني في التحيات وتقديم النفس باللغة الفرنسية.',
+                assistantTips: [
+                    'للسؤال عن الاسم: Comment tu t’appelles ? والإجابة: Je m’appelle ...'
+                ],
+                units: [
+                    {
+                        unitName: 'Unité 1: Le club de ma classe',
+                        lessons: [
+                            {
+                                title: 'Se présenter et saluer',
+                                subtitle: 'Les pronoms sujets et le verbe s’appeler',
+                                videoUrl: '',
+                                visualSVG: '',
+                                body: `<p dir="ltr" class="text-left font-bold">Bonjour ! • Comment tu t'appelles ? ➔ Je m'appelle Hassan.</p>`,
+                                quiz: [{ q: 'للرد على سؤال "Comment tu t’appelles ?"، نقول:', options: ['J’ai 15 ans', 'Je m’appelle Ali', 'J’habite au Caire', 'Ça va bien'], ans: 1 }]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        /* ============================================================================
+           3. STATE, CLOUD SYNC, STUDENT PROFILE & TIER FRAMES (BRONZE/SILVER/GOLD)
+           ============================================================================ */
+        const STORAGE_KEY_STATE = 'sahaltahalak_cloud_state_v7';
+        const syncChannel = ('BroadcastChannel' in window) ? new BroadcastChannel('sahaltahalak_cloud_sync_v7') : null;
+
+        let appState = {
+            version: 'V7.0 CLOUD',
+            settings: {
+                brandName: 'سهلتهالك بخطوه',
+                brandSubtitle: 'الصف الأول الثانوي • الترم الأول',
+                footerCredit: 'عمل وتطوير تيم القدوه Hassanelngar',
+                theme: 'royal-dark',
+                maintenanceMode: false,
+                adminPhone: '01050489662',
+                adminWebhook: '',
+                toolbarScale: 1
+            },
+            studentProfile: {
+                name: 'طالب منصة سهلتهالك بخطوه',
+                code: 'SB-2026-' + Math.floor(1000 + Math.random() * 9000),
+                avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=ElQodwaStudent',
+                xp: 250,
+                examResults: []
+            },
+            curriculum: JSON.parse(JSON.stringify(DEFAULT_CURRICULUM)),
+            subjectResources: [], // { id, subjectId, type: 'video'|'image'|'link', title, url, date }
+            supportTickets: [
+                {
+                    id: 'TCK-101',
+                    category: '💡 اقتراح إضافة ميزة جديدة',
+                    contact: 'أحمد محمود • 01012345678',
+                    details: 'تصميم علوم السفاحي والتاريخ الفرعوني رائع جداً وسريع!',
+                    status: 'تم الرد',
+                    reply: 'شكراً لك يا بطل! بالتوفيق دائماً — فريق تيم القدوه Hassanelngar',
+                    date: 'اليوم'
+                }
+            ],
+            visitors: []
+        };
+
+        let allPdfDocuments = [...BUILTIN_PDF_DOCS];
+        let queuedPdfFiles = [];
+        let activePdfFilter = 'all';
+        let activeSubjectId = 'sciences';
+        let activeUnitIdx = 0;
+        let activeLessonIdx = 0;
+        let isDeveloperLoggedIn = false;
+        let generatedSmsOtp = null;
+        let pendingStudentData = null;
+
+        function loadCloudState() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY_STATE);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    appState = {
+                        ...appState,
+                        ...parsed,
+                        settings: { ...appState.settings, ...(parsed.settings || {}) },
+                        studentProfile: { ...appState.studentProfile, ...(parsed.studentProfile || {}) }
+                    };
+                }
+            } catch (e) {}
+        }
+
+        function saveCloudState() {
+            try {
+                localStorage.setItem(STORAGE_KEY_STATE, JSON.stringify(appState));
+                const syncEl = document.getElementById('cloud-last-sync-time');
+                if (syncEl) syncEl.innerText = new Date().toLocaleTimeString('ar-EG');
+                if (syncChannel) syncChannel.postMessage({ type: 'CLOUD_SYNC' });
+            } catch (e) {}
+        }
+
+        if (syncChannel) {
+            syncChannel.onmessage = (e) => {
+                if (!e.data) return;
+                if (e.data.type === 'CLOUD_SYNC') {
+                    loadCloudState();
+                    applyAllUI();
+                } else if (e.data.type === 'OTA_UPDATE') {
+                    showOtaUpdateBanner(e.data.version, e.data.changelog);
+                }
+            };
+        }
+
+        function applyAllUI() {
+            document.getElementById('cms-brand-name').innerText = appState.settings.brandName;
+            document.getElementById('cms-brand-subtitle').innerText = appState.settings.brandSubtitle;
+            document.getElementById('cms-footer-credit').innerText = appState.settings.footerCredit;
+            document.getElementById('platform-version-badge').innerText = appState.version || 'V7.0 CLOUD';
+            document.documentElement.setAttribute('data-theme', appState.settings.theme || 'royal-dark');
+
+            const maintEl = document.getElementById('maintenance-overlay');
+            if (appState.settings.maintenanceMode && !isDeveloperLoggedIn) {
+                maintEl.classList.remove('hidden');
+                maintEl.classList.add('flex');
+            } else {
+                maintEl.classList.add('hidden');
+                maintEl.classList.remove('flex');
+            }
+
+            updateStudentProfileUI();
+            renderAllSubjectViews();
+            renderSupportTickets();
+        }
+
+        window.setAppTheme = function(t) {
+            appState.settings.theme = t;
+            document.documentElement.setAttribute('data-theme', t);
+            saveCloudState();
+        };
+
+        window.navigateTo = function(pageId) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            const target = document.getElementById('page-' + pageId);
+            if (target) target.classList.add('active');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-accent', 'text-white');
+                if (btn.getAttribute('data-nav') === pageId) btn.classList.add('bg-accent', 'text-white');
+            });
+
+            if (pageId === 'smartboard') setTimeout(resizeSmartBoard, 25);
+            else if (pageId === 'subjects') renderSubjectDetailView();
+            else if (pageId === 'profile') updateStudentProfileUI();
+            else if (pageId === 'books') renderPdfLibraryGrid();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.openSubject = function(subId) {
+            activeSubjectId = subId;
+            activeUnitIdx = 0;
+            activeLessonIdx = 0;
+            navigateTo('subjects');
+        };
+
+        /* ============================================================================
+           4. STUDENT PROFILE, PHOTO UPLOAD, BRONZE/SILVER/GOLD FRAMES & REPORT CARD
+           ============================================================================ */
+        function addStudentXp(pts) {
+            appState.studentProfile.xp = (appState.studentProfile.xp || 0) + pts;
+            saveCloudState();
+            updateStudentProfileUI();
+        }
+
+        window.handleStudentPhotoUpload = function(file) {
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                appState.studentProfile.avatarUrl = e.target.result;
+                saveCloudState();
+                updateStudentProfileUI();
+                showNotification('تم تحديث الصورة', 'تم حفظ صورتك الشخصية وتطبيق الإطار عليها.');
+            };
+            reader.readAsDataURL(file);
+        };
+
+        window.updateStudentProfileName = function() {
+            const val = document.getElementById('profile-edit-name-inp').value.trim();
+            if (!val) return;
+            appState.studentProfile.name = val;
+            document.getElementById('header-user-name').innerText = val;
+            saveCloudState();
+            updateStudentProfileUI();
+            showNotification('تم الحفظ', 'تم تحديث اسم الطالب بنجاح.');
+        };
+
+        function updateStudentProfileUI() {
+            const prof = appState.studentProfile;
+            const xp = prof.xp || 0;
+
+            document.getElementById('user-xp-badge').innerText = xp + ' XP';
+            document.getElementById('profile-student-name').innerText = prof.name;
+            document.getElementById('profile-student-code').innerText = prof.code;
+            document.getElementById('student-avatar-img').src = prof.avatarUrl;
+            document.getElementById('rep-total-xp').innerText = xp;
+
+            const frameEl = document.getElementById('student-avatar-frame');
+            const labelEl = document.getElementById('profile-frame-label');
+            const headerTier = document.getElementById('header-tier-badge');
+            const barEl = document.getElementById('profile-xp-bar');
+            const progText = document.getElementById('profile-xp-progress-text');
+
+            frameEl.classList.remove('frame-bronze', 'frame-silver', 'frame-gold');
+
+            if (xp >= 1500) {
+                frameEl.classList.add('frame-gold');
+                labelEl.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-500/20 border border-yellow-400 text-yellow-300 text-xs font-black';
+                labelEl.innerText = '👑 الإطار الذهبي الملكي (أسطورة المنصة)';
+                headerTier.innerText = '👑 ذهبي';
+                barEl.style.width = '100%';
+                progText.innerText = `${xp} XP (أعلى مستوى)`;
+            } else if (xp >= 500) {
+                frameEl.classList.add('frame-silver');
+                labelEl.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-400/20 border border-slate-300 text-slate-200 text-xs font-black';
+                labelEl.innerText = '🥈 الإطار الفضي (طالب متميز)';
+                headerTier.innerText = '🥈 فضي';
+                const pct = Math.min(100, Math.round(((xp - 500) / 1000) * 100));
+                barEl.style.width = pct + '%';
+                progText.innerText = `${xp} / 1500 XP للإطار الذهبي`;
+            } else {
+                frameEl.classList.add('frame-bronze');
+                labelEl.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-600/20 border border-amber-500/40 text-amber-400 text-xs font-black';
+                labelEl.innerText = '🥉 الإطار البرونزي (بداية الانطلاق)';
+                headerTier.innerText = '🥉 برونزي';
+                const pct = Math.min(100, Math.round((xp / 500) * 100));
+                barEl.style.width = pct + '%';
+                progText.innerText = `${xp} / 500 XP للإطار الفضي`;
+            }
+
+            // Exam Results & Performance Report
+            const exams = prof.examResults || [];
+            document.getElementById('rep-exams-count').innerText = exams.length;
+            const totalCorrect = exams.reduce((acc, e) => acc + e.score, 0);
+            const totalQs = exams.reduce((acc, e) => acc + e.total, 0);
+            const accuracy = totalQs > 0 ? Math.round((totalCorrect / totalQs) * 100) : 100;
+            document.getElementById('rep-accuracy').innerText = accuracy + '%';
+            document.getElementById('rep-grade-label').innerText = accuracy >= 85 ? 'ممتاز 🌟' : (accuracy >= 70 ? 'جيد جداً 👍' : 'يحتاج مراجعة 📚');
+
+            const barsBox = document.getElementById('report-subjects-bars');
+            if (barsBox) {
+                barsBox.innerHTML = appState.curriculum.map(sub => {
+                    const subExams = exams.filter(e => e.subjectId === sub.id);
+                    const subPct = subExams.length > 0
+                        ? Math.round((subExams.reduce((a, b) => a + b.score, 0) / subExams.reduce((a, b) => a + b.total, 0)) * 100)
+                        : 0;
+                    return `
+                        <div class="p-3 rounded-2xl bg-primary border border-borderCol space-y-1.5">
+                            <div class="flex justify-between text-xs font-black">
+                                <span>${sub.name}</span>
+                                <span class="text-amber-400 font-mono">${subPct}%</span>
+                            </div>
+                            <div class="w-full h-2 rounded-full bg-card overflow-hidden">
+                                <div class="h-full bg-accent transition-all" style="width: ${subPct}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            const tbody = document.getElementById('report-exams-tbody');
+            if (tbody) {
+                tbody.innerHTML = exams.length === 0
+                    ? '<tr><td colspan="4" class="p-4 text-center text-textMuted">لم تقم بحل أي اختبار بعد. افتح أي درس وجرب الاختبار التفاعلي!</td></tr>'
+                    : exams.map(ex => `
+                        <tr>
+                            <td class="p-3 font-black text-accent">${ex.subjectName}</td>
+                            <td class="p-3 font-bold">${ex.lessonTitle}</td>
+                            <td class="p-3 font-mono font-black text-emerald-400">${ex.score} / ${ex.total}</td>
+                            <td class="p-3 text-textMuted">${ex.date}</td>
+                        </tr>
+                    `).join('');
+            }
+        }
+
+        /* ============================================================================
+           5. SUBJECT VIEWS + DEDICATED SUBJECT ASSISTANT + ADMIN RESOURCES
+           ============================================================================ */
+        function renderAllSubjectViews() {
+            const grid = document.getElementById('home-subjects-grid');
+            if (grid) {
+                grid.innerHTML = appState.curriculum.map(sub => `
+                    <div onclick="openSubject('${sub.id}')" class="group cursor-pointer rounded-3xl p-5 ${sub.themeClass} transition-all hover:-translate-y-1.5 shadow-lg flex flex-col justify-between gap-4 gpu-layer">
+                        <div class="space-y-3 relative z-10">
+                            <div class="flex items-center justify-between">
+                                <div class="w-11 h-11 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center text-lg shadow">
+                                    <i class="fa-solid ${sub.icon}"></i>
+                                </div>
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-black/35 border border-white/20">${sub.badge}</span>
+                            </div>
+                            <h4 class="text-base font-black">${sub.name}</h4>
+                            <p class="text-xs opacity-90 leading-relaxed line-clamp-2">${sub.shortDesc}</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-white/15 text-xs font-black relative z-10">
+                            <span>دخول عالم المادة</span>
+                            <span>←</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            renderSubjectDetailView();
+        }
+
+        function renderSubjectDetailView() {
+            const sub = appState.curriculum.find(s => s.id === activeSubjectId) || appState.curriculum[0];
+            if (!sub) return;
+            activeSubjectId = sub.id;
+
+            const pillsBox = document.getElementById('subject-selector-pills');
+            if (pillsBox) {
+                pillsBox.innerHTML = appState.curriculum.map(s => `
+                    <button onclick="openSubject('${s.id}')" class="px-3 py-1.5 rounded-xl text-xs font-extrabold transition ${s.id === activeSubjectId ? 'bg-accent text-white shadow' : 'bg-card text-textMain hover:bg-borderCol'}">
+                        ${s.name}
+                    </button>
+                `).join('');
+            }
+
+            // Apply Subject-Specific Theme Banner
+            const headerBox = document.getElementById('active-subject-header');
+            headerBox.className = `rounded-3xl p-6 sm:p-8 shadow-2xl transition-all duration-300 ${sub.themeClass}`;
+            headerBox.innerHTML = `
+                <div class="flex flex-wrap items-center justify-between gap-4 relative z-10">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-2xl bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center text-3xl shadow-lg">
+                            <i class="fa-solid ${sub.icon}"></i>
+                        </div>
+                        <div>
+                            <span class="px-3 py-0.5 rounded-full text-[11px] font-black bg-black/40 border border-white/20">${sub.badge}</span>
+                            <h2 class="text-2xl sm:text-3xl font-black mt-1">${sub.name}</h2>
+                            <p class="text-xs sm:text-sm opacity-90 mt-1 max-w-2xl">${sub.shortDesc}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Render Subject Resources (Videos, Images, Links added by Admin)
+            const resList = (appState.subjectResources || []).filter(r => r.subjectId === sub.id);
+            const resBar = document.getElementById('subject-resources-bar');
+            if (resList.length > 0) {
+                resBar.classList.remove('hidden');
+                resBar.innerHTML = `
+                    <h3 class="text-sm font-black text-amber-400"><i class="fa-solid fa-folder-open ml-1"></i> مكتبة الفيديوهات والصور والروابط المضافة للمادة (${resList.length})</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        ${resList.map(r => {
+                            if (r.type === 'image') {
+                                return `<div class="p-3 rounded-2xl bg-card border border-borderCol space-y-2"><img src="${r.url}" alt="${r.title}" class="w-full h-36 object-cover rounded-xl"><div class="text-xs font-black">${r.title}</div></div>`;
+                            } else if (r.type === 'video') {
+                                return `<div class="p-3 rounded-2xl bg-card border border-borderCol space-y-2"><div class="aspect-video rounded-xl overflow-hidden bg-black"><iframe src="${convertYoutubeToEmbed(r.url)}" class="w-full h-full" frameborder="0" allowfullscreen></iframe></div><div class="text-xs font-black">${r.title}</div></div>`;
+                            } else {
+                                return `<a href="${r.url}" target="_blank" rel="noopener" class="p-4 rounded-2xl bg-card hover:bg-accent hover:text-white border border-borderCol flex items-center justify-between transition"><div class="space-y-0.5"><div class="text-xs font-black">${r.title}</div><div class="text-[10px] opacity-75">رابط خارجي • اضغط للفتح</div></div><i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
+                            }
+                        }).join('')}
+                    </div>
+                `;
+            } else {
+                resBar.classList.add('hidden');
+            }
+
+            // Setup Subject Smart Assistant
+            document.getElementById('assistant-title').innerText = sub.assistantName || ('مساعد ' + sub.name);
+            const chatBox = document.getElementById('assistant-chat-box');
+            chatBox.innerHTML = `<div class="p-2.5 rounded-xl bg-accent/15 border border-accent/30 text-textMain leading-relaxed"><strong>🤖 المساعد:</strong> ${sub.assistantGreeting || 'مرحباً! اسألني أي سؤال في هذه المادة.'}</div>`;
+
+            // Units & Lessons Sidebar
+            const sidebar = document.getElementById('units-sidebar-container');
+            sidebar.innerHTML = `<h3 class="text-sm font-black text-textMain px-1 pb-1 border-b border-borderCol">فهرس الوحدات والدروس</h3>` +
+                sub.units.map((unit, uIdx) => `
+                    <div class="space-y-1.5">
+                        <div class="text-xs font-black text-accentSec px-2 pt-1">${unit.unitName}</div>
+                        ${unit.lessons.map((les, lIdx) => {
+                            const isSel = (uIdx === activeUnitIdx && lIdx === activeLessonIdx);
+                            return `<button onclick="activeUnitIdx=${uIdx}; activeLessonIdx=${lIdx}; addStudentXp(10); renderSubjectDetailView();" class="w-full text-right px-3.5 py-2.5 rounded-2xl text-xs font-bold transition flex items-center justify-between ${isSel ? 'bg-accent text-white shadow' : 'bg-card hover:bg-borderCol text-textMain'}"><span class="line-clamp-1">${les.title}</span><i class="fa-solid fa-circle-play"></i></button>`;
+                        }).join('')}
+                    </div>
+                `).join('');
+
+            // Lesson Viewer
+            const unit = sub.units[activeUnitIdx] || sub.units[0];
+            const lesson = unit ? (unit.lessons[activeLessonIdx] || unit.lessons[0]) : null;
+            const viewer = document.getElementById('lesson-viewer-container');
+            if (!lesson) return;
+
+            viewer.innerHTML = `
+                <div class="border-b border-borderCol pb-4 space-y-1">
+                    <span class="text-xs font-bold text-accent">${unit.unitName}</span>
+                    <h2 class="text-xl sm:text-2xl font-black text-textMain">${lesson.title}</h2>
+                    <p class="text-xs text-textMuted">${lesson.subtitle || ''}</p>
+                </div>
+                ${lesson.videoUrl ? `<div class="rounded-2xl overflow-hidden border border-borderCol bg-black aspect-video shadow-lg"><iframe src="${lesson.videoUrl}" class="w-full h-full" frameborder="0" allowfullscreen></iframe></div>` : ''}
+                ${lesson.visualSVG ? `<div class="my-4">${lesson.visualSVG}</div>` : ''}
+                <div class="textbook-content text-sm sm:text-base">${lesson.body}</div>
+                ${lesson.quiz && lesson.quiz.length > 0 ? `
+                    <div class="mt-8 pt-6 border-t border-borderCol space-y-4">
+                        <h3 class="text-lg font-black text-amber-400"><i class="fa-solid fa-clipboard-check ml-1"></i> اختبار الدرس (تُسجل النتيجة في تقرير أدائك)</h3>
+                        <div class="space-y-4">
+                            ${lesson.quiz.map((qObj, qIdx) => `
+                                <div class="p-4 rounded-2xl bg-card border border-borderCol space-y-2.5">
+                                    <div class="text-xs sm:text-sm font-black">${qIdx + 1}. ${qObj.q}</div>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                        ${qObj.options.map((opt, oIdx) => `
+                                            <button onclick="gradeLessonQuestion(this, '${sub.id}', '${sub.name}', '${lesson.title}', ${qIdx}, ${oIdx}, ${qObj.ans}, ${lesson.quiz.length})" class="quiz-opt-${qIdx} text-right px-3.5 py-2 rounded-xl bg-primary hover:bg-accent hover:text-white border border-borderCol text-xs font-bold transition">${opt}</button>
+                                        `).join('')}
+                                    </div>
+                                    <div id="quiz-feedback-${qIdx}" class="text-xs font-black hidden"></div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+            `;
+        }
+
+        window.askSubjectAssistant = function(questionText) {
+            const sub = appState.curriculum.find(s => s.id === activeSubjectId) || appState.curriculum[0];
+            const chatBox = document.getElementById('assistant-chat-box');
+            chatBox.innerHTML += `<div class="p-2 rounded-xl bg-card text-textMain text-left font-bold"><strong>أنت:</strong> ${questionText}</div>`;
+
+            const tips = sub.assistantTips || ['راجع النقاط الذهبية في الدرس وحل الاختبار التفاعلي لرفع نقاطك!'];
+            const reply = tips[Math.floor(Math.random() * tips.length)];
+            setTimeout(() => {
+                chatBox.innerHTML += `<div class="p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-textMain leading-relaxed"><strong>🤖 ${sub.assistantName || 'المساعد'}:</strong> ${reply}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 250);
+        };
+
+        window.sendAssistantCustomMsg = function() {
+            const inp = document.getElementById('assistant-user-input');
+            const val = inp.value.trim();
+            if (!val) return;
+            inp.value = '';
+            askSubjectAssistant(val);
+        };
+
+        let currentLessonQuizScore = 0;
+        let currentLessonAnsweredCount = 0;
+
+        window.gradeLessonQuestion = function(btn, subId, subName, lessonTitle, qIdx, chosenIdx, correctIdx, totalQs) {
+            document.querySelectorAll(`.quiz-opt-${qIdx}`).forEach((b, i) => {
+                b.disabled = true;
+                b.classList.remove('hover:bg-accent', 'hover:text-white');
+                if (i === correctIdx) b.classList.add('bg-emerald-600', 'text-white');
+                else if (i === chosenIdx && chosenIdx !== correctIdx) b.classList.add('bg-rose-600', 'text-white');
+            });
+
+            const fb = document.getElementById(`quiz-feedback-${qIdx}`);
+            fb.classList.remove('hidden');
+            currentLessonAnsweredCount++;
+
+            if (chosenIdx === correctIdx) {
+                currentLessonQuizScore++;
+                addStudentXp(40);
+                fb.className = 'text-xs font-black text-emerald-400';
+                fb.innerHTML = '✔ إجابة صحيحة (+40 XP)!';
+            } else {
+                fb.className = 'text-xs font-black text-rose-400';
+                fb.innerHTML = '✘ إجابة غير صحيحة.';
+            }
+
+            if (currentLessonAnsweredCount >= totalQs) {
+                appState.studentProfile.examResults.unshift({
+                    subjectId: subId,
+                    subjectName: subName,
+                    lessonTitle,
+                    score: currentLessonQuizScore,
+                    total: totalQs,
+                    date: new Date().toLocaleDateString('ar-EG')
+                });
+                currentLessonQuizScore = 0;
+                currentLessonAnsweredCount = 0;
+                saveCloudState();
+                updateStudentProfileUI();
+                showNotification('تم تسجيل نتيجتك!', 'تمت إضافة نتيجة الاختبار إلى تقرير أدائك في صفحة حسابك.');
+            }
+        };
+
+        /* ============================================================================
+           6. TECHNICAL SUPPORT TICKETING (STUDENT + ADMIN)
+           ============================================================================ */
+        window.submitSupportTicket = function() {
+            const category = document.getElementById('sup-category').value;
+            const contact = document.getElementById('sup-contact').value.trim() || appState.studentProfile.name;
+            const details = document.getElementById('sup-details').value.trim();
+            if (!details) {
+                showNotification('تنبيه', 'يرجى كتابة تفاصيل المشكلة أولاً.');
+                return;
+            }
+
+            const ticket = {
+                id: 'TCK-' + Math.floor(100 + Math.random() * 900),
+                category,
+                contact,
+                details,
+                status: 'قيد المراجعة',
+                reply: '',
+                date: new Date().toLocaleString('ar-EG')
+            };
+
+            appState.supportTickets.unshift(ticket);
+            document.getElementById('sup-details').value = '';
+            saveCloudState();
+            renderSupportTickets();
+            triggerAdminTelemetryAlert({ name: contact, role: 'بلاغ دعم فني (' + ticket.id + ')', stuPhone: contact, parentPhone: details, method: category, timeStr: ticket.date }, false);
+            showNotification('تم إرسال البلاغ', `رقم التذكرة ${ticket.id} — سيقوم فريق الدعم الفني بالرد عليك قريباً.`);
+        };
+
+        function renderSupportTickets() {
+            const listBox = document.getElementById('student-tickets-list');
+            if (listBox) {
+                listBox.innerHTML = appState.supportTickets.map(t => `
+                    <div class="p-4 rounded-2xl bg-primary border border-borderCol space-y-2 text-xs">
+                        <div class="flex items-center justify-between">
+                            <span class="font-black text-sky-400">${t.id} • ${t.category}</span>
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black ${t.status === 'تم الرد' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}">${t.status}</span>
+                        </div>
+                        <p class="text-textMain leading-relaxed">${t.details}</p>
+                        ${t.reply ? `<div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-bold"><strong>رد الإدارة:</strong> ${t.reply}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            const adminBox = document.getElementById('admin-tickets-list');
+            if (adminBox) {
+                adminBox.innerHTML = appState.supportTickets.map((t, idx) => `
+                    <div class="p-4 rounded-2xl bg-card border border-borderCol space-y-2 text-xs">
+                        <div class="flex justify-between font-black">
+                            <span class="text-amber-400">${t.id} — ${t.contact}</span>
+                            <span class="text-textMuted">${t.date}</span>
+                        </div>
+                        <div class="font-bold text-sky-400">${t.category}</div>
+                        <p class="text-textMain">${t.details}</p>
+                        <div class="flex gap-2 pt-1">
+                            <input type="text" id="admin-ticket-reply-${idx}" value="${t.reply || ''}" placeholder="اكتب رد المشرف لحل المشكلة..." class="flex-1 bg-primary border border-borderCol rounded-xl px-3 py-1.5 text-xs">
+                            <button onclick="replyToSupportTicket(${idx})" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 text-white font-black text-xs">إرسال الرد</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        window.replyToSupportTicket = function(idx) {
+            const inp = document.getElementById('admin-ticket-reply-' + idx);
+            if (!inp || !inp.value.trim()) return;
+            appState.supportTickets[idx].reply = inp.value.trim();
+            appState.supportTickets[idx].status = 'تم الرد';
+            saveCloudState();
+            renderSupportTickets();
+            showNotification('تم إرسال الرد', 'تم إرسال رد المشرف للطالب.');
+        };
+
+        /* ============================================================================
+           7. ADMIN MEDIA UPLOADER (VIDEOS, IMAGES, LINKS) + CLOUD OTA UPDATE
+           ============================================================================ */
+        window.toggleAdminMediaFields = function() {
+            const type = document.getElementById('admin-media-type').value;
+            document.getElementById('admin-media-file-box').classList.toggle('hidden', type !== 'image');
+        };
+
+        window.adminAddMediaResource = function() {
+            const subjectId = document.getElementById('admin-media-subject').value;
+            const type = document.getElementById('admin-media-type').value;
+            const title = document.getElementById('admin-media-title').value.trim();
+            const urlVal = document.getElementById('admin-media-url').value.trim();
+            const fileInput = document.getElementById('admin-media-file');
+
+            if (!title) {
+                showNotification('تنبيه', 'اكتب عنواناً للفيديو أو الصورة أو الرابط.');
+                return;
+            }
+
+            if (type === 'image' && fileInput && fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    appState.subjectResources.unshift({ id: 'res_' + Date.now(), subjectId, type: 'image', title, url: e.target.result });
+                    finishAdminMediaSave();
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+                return;
+            }
+
+            if (!urlVal) {
+                showNotification('تنبيه', 'أدخل الرابط (URL) أولاً.');
+                return;
+            }
+
+            appState.subjectResources.unshift({ id: 'res_' + Date.now(), subjectId, type, title, url: urlVal });
+            finishAdminMediaSave();
+        };
+
+        function finishAdminMediaSave() {
+            document.getElementById('admin-media-title').value = '';
+            document.getElementById('admin-media-url').value = '';
+            saveCloudState();
+            renderAdminMediaList();
+            renderSubjectDetailView();
+            showNotification('تم النشر بنجاح', 'تمت إضافة المحتوى للمادة المختارة.');
+        }
+
+        function renderAdminMediaList() {
+            const box = document.getElementById('admin-media-list');
+            if (!box) return;
+            box.innerHTML = appState.subjectResources.length === 0
+                ? '<div class="text-xs text-textMuted text-center py-8">لا توجد فيديوهات أو صور أو روابط مضافة بعد.</div>'
+                : appState.subjectResources.map((r, idx) => `
+                    <div class="flex items-center justify-between p-3 rounded-xl bg-card border border-borderCol text-xs">
+                        <div>
+                            <span class="px-2 py-0.5 rounded bg-accent/20 text-accent font-black ml-1">${r.type === 'video' ? 'فيديو' : (r.type === 'image' ? 'صورة' : 'رابط')}</span>
+                            <span class="font-bold">${r.title}</span>
+                        </div>
+                        <button onclick="appState.subjectResources.splice(${idx},1); saveCloudState(); renderAdminMediaList(); renderSubjectDetailView();" class="text-rose-400"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `).join('');
+        }
+
+        window.exportCloudBackupJson = function() {
+            const blob = new Blob([JSON.stringify(appState, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.download = `Sahaltahalak_Cloud_Backup_${Date.now()}.json`;
+            a.href = URL.createObjectURL(blob);
+            a.click();
+        };
+
+        window.importCloudBackupJson = function(file) {
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    appState = { ...appState, ...imported };
+                    saveCloudState();
+                    applyAllUI();
+                    showNotification('تمت الاستعادة السحابية', 'تم استيراد جميع البيانات والمناهج بنجاح.');
+                } catch { showNotification('خطأ', 'ملف النسخة السحابية غير صالح.'); }
+            };
+            reader.readAsText(file);
+        };
+
+        window.pushGlobalPlatformUpdate = function() {
+            const ver = document.getElementById('ota-version-inp').value.trim() || 'V7.5 PRO';
+            const log = document.getElementById('ota-changelog-inp').value.trim() || 'تم إطلاق تحديث شامل جديد للمناهج والملفات!';
+            appState.version = ver;
+            saveCloudState();
+            applyAllUI();
+            showOtaUpdateBanner(ver, log);
+            if (syncChannel) syncChannel.postMessage({ type: 'OTA_UPDATE', version: ver, changelog: log });
+            showNotification('تم إطلاق التحديث الشامل', `تم تعميم الإصدار ${ver} على جميع الطلاب.`);
+        };
+
+        function showOtaUpdateBanner(ver, log) {
+            document.getElementById('live-broadcast-title').innerText = `🚀 تحديث شامل جديد (${ver}) • سهلتهالك بخطوه`;
+            document.getElementById('live-broadcast-text').innerText = log;
+            document.getElementById('live-broadcast-banner').classList.remove('hidden');
+        }
+
+        /* ============================================================================
+           8. PDF LIBRARY, FLOATING TOOLBAR, SMART BOARD & AUTHENTICATION
+           ============================================================================ */
+        async function refreshPdfLibraryFromDB() {
+            try {
+                const uploaded = await getAllPdfsFromDB();
+                allPdfDocuments = [...uploaded.reverse(), ...BUILTIN_PDF_DOCS];
+            } catch { allPdfDocuments = [...BUILTIN_PDF_DOCS]; }
+            renderPdfLibraryGrid();
+            const devList = document.getElementById('dev-pdf-manage-list');
+            if (devList) {
+                devList.innerHTML = allPdfDocuments.map(d => `<div class="p-2.5 rounded-xl bg-card border border-borderCol text-xs font-bold flex justify-between"><span>${d.title}</span><span class="text-amber-400">${d.subjectName}</span></div>`).join('');
+            }
+        }
+
+        window.handlePdfFileSelection = function(files) {
+            queuedPdfFiles = files ? Array.from(files) : [];
+            const st = document.getElementById('selected-pdf-files-status');
+            if (st && queuedPdfFiles.length) st.innerText = `تم تحديد (${queuedPdfFiles.length}) ملف جاهز للرفع`;
+        };
+
+        window.uploadQueuedPdfFiles = async function() {
+            if (!queuedPdfFiles.length) return;
+            const category = document.getElementById('dev-pdf-category').value;
+            const subjectName = document.getElementById('dev-pdf-subject').value;
+            for (let i = 0; i < queuedPdfFiles.length; i++) {
+                const f = queuedPdfFiles[i];
+                const buf = await f.arrayBuffer();
+                await savePdfItemToDB({ id: 'pdf_' + Date.now() + '_' + i, title: f.name.replace(/\.pdf$/i, ''), subjectName, category, isBuiltin: false, fileData: buf });
+            }
+            queuedPdfFiles = [];
+            await refreshPdfLibraryFromDB();
+            showNotification('تم الرفع', 'تم رفع ملفات الـ PDF بنجاح.');
+        };
+
+        window.filterPdfLibrary = function(f) { activePdfFilter = f; renderPdfLibraryGrid(); };
+        function renderPdfLibraryGrid() {
+            const grid = document.getElementById('pdf-library-grid');
+            if (!grid) return;
+            const list = allPdfDocuments.filter(d => activePdfFilter === 'all' || d.category === activePdfFilter);
+            grid.innerHTML = list.map(doc => `
+                <div class="rounded-3xl p-5 bg-secondary border border-borderCol space-y-3">
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-500/15 text-rose-400">${doc.category === 'book' ? '📘 كتاب المدرسة' : '📝 تقييم أسبوعي'}</span>
+                    <h3 class="text-sm font-black text-textMain">${doc.title}</h3>
+                    <button onclick="openPdfInEditor('${doc.id}')" class="w-full py-2.5 rounded-xl bg-accent text-white font-black text-xs">فتح في محرر الـ PDF</button>
+                </div>
+            `).join('');
+        }
+
+        let currentPdfDoc = null, currentPdfObj = null, pdfCurrentPage = 1, pdfTotalPages = 1, pdfTool = 'pen', pdfPenColor = '#ef4444', pdfDrawing = false, pdfPrevPt = null;
+        const pdfRenderCanvas = document.getElementById('pdf-render-canvas'), pdfRenderCtx = pdfRenderCanvas.getContext('2d');
+        const pdfAnnotateCanvas = document.getElementById('pdf-annotate-canvas'), pdfAnnotateCtx = pdfAnnotateCanvas.getContext('2d');
+
+        window.openPdfInEditor = async function(id) {
+            const doc = allPdfDocuments.find(d => d.id === id);
+            if (!doc) return;
+            currentPdfObj = doc; pdfCurrentPage = 1;
+            document.getElementById('pdf-studio-title').innerText = doc.title;
+            document.getElementById('pdf-editor-studio').classList.remove('hidden');
+            if (doc.fileData && window.pdfjsLib) {
+                currentPdfDoc = await pdfjsLib.getDocument({ data: doc.fileData.slice(0) }).promise;
+                pdfTotalPages = currentPdfDoc.numPages;
+            } else {
+                currentPdfDoc = null; pdfTotalPages = doc.pages ? doc.pages.length : 1;
+            }
+            renderActivePdfPage();
+        };
+        async function renderActivePdfPage() {
+            document.getElementById('pdf-page-indicator').innerText = `${pdfCurrentPage} / ${pdfTotalPages}`;
+            if (currentPdfDoc) {
+                const page = await currentPdfDoc.getPage(pdfCurrentPage);
+                const vp = page.getViewport({ scale: 1.4 });
+                pdfRenderCanvas.width = vp.width; pdfRenderCanvas.height = vp.height;
+                pdfAnnotateCanvas.width = vp.width; pdfAnnotateCanvas.height = vp.height;
+                await page.render({ canvasContext: pdfRenderCtx, viewport: vp }).promise;
+            } else if (currentPdfObj && currentPdfObj.pages) {
+                const p = currentPdfObj.pages[pdfCurrentPage - 1] || currentPdfObj.pages[0];
+                pdfRenderCanvas.width = 800; pdfRenderCanvas.height = 960;
+                pdfAnnotateCanvas.width = 800; pdfAnnotateCanvas.height = 960;
+                pdfRenderCtx.fillStyle = '#fff'; pdfRenderCtx.fillRect(0, 0, 800, 960);
+                pdfRenderCtx.fillStyle = '#0f172a'; pdfRenderCtx.font = 'bold 22px Cairo'; pdfRenderCtx.textAlign = 'right';
+                pdfRenderCtx.fillText(p.heading, 760, 70);
+                pdfRenderCtx.font = '18px Cairo';
+                p.lines.forEach((l, i) => pdfRenderCtx.fillText(l, 760, 140 + i * 45));
+            }
+        }
+        window.changePdfPage = function(d) { const n = pdfCurrentPage + d; if (n >= 1 && n <= pdfTotalPages) { pdfCurrentPage = n; renderActivePdfPage(); } };
+        window.closePdfStudio = function() { document.getElementById('pdf-editor-studio').classList.add('hidden'); };
+        window.setPdfTool = function(t) { pdfTool = t; };
+        window.exportAnnotatedPdfPage = function() {
+            const m = document.createElement('canvas'); m.width = pdfRenderCanvas.width; m.height = pdfRenderCanvas.height;
+            const c = m.getContext('2d'); c.drawImage(pdfRenderCanvas, 0, 0); c.drawImage(pdfAnnotateCanvas, 0, 0);
+            const a = document.createElement('a'); a.download = 'Sahaltahalak_PDF.png'; a.href = m.toDataURL(); a.click();
+        };
+        pdfAnnotateCanvas.addEventListener('pointerdown', (e) => {
+            const r = pdfAnnotateCanvas.getBoundingClientRect();
+            pdfDrawing = true; pdfPrevPt = { x: (e.clientX - r.left) * (pdfAnnotateCanvas.width / r.width), y: (e.clientY - r.top) * (pdfAnnotateCanvas.height / r.height) };
+        });
+        pdfAnnotateCanvas.addEventListener('pointermove', (e) => {
+            if (!pdfDrawing) return;
+            const r = pdfAnnotateCanvas.getBoundingClientRect();
+            const x = (e.clientX - r.left) * (pdfAnnotateCanvas.width / r.width), y = (e.clientY - r.top) * (pdfAnnotateCanvas.height / r.height);
+            pdfAnnotateCtx.save(); pdfAnnotateCtx.lineCap = 'round';
+            if (pdfTool === 'eraser') { pdfAnnotateCtx.globalCompositeOperation = 'destination-out'; pdfAnnotateCtx.lineWidth = 26; }
+            else if (pdfTool === 'highlighter') { pdfAnnotateCtx.strokeStyle = pdfPenColor; pdfAnnotateCtx.globalAlpha = 0.28; pdfAnnotateCtx.lineWidth = 22; }
+            else { pdfAnnotateCtx.strokeStyle = pdfPenColor; pdfAnnotateCtx.lineWidth = 3.5; }
+            pdfAnnotateCtx.beginPath(); pdfAnnotateCtx.moveTo(pdfPrevPt.x, pdfPrevPt.y); pdfAnnotateCtx.lineTo(x, y); pdfAnnotateCtx.stroke(); pdfAnnotateCtx.restore();
+            pdfPrevPt = { x, y };
+        });
+        pdfAnnotateCanvas.addEventListener('pointerup', () => { pdfDrawing = false; });
+
+        // Floating Global Toolbar
+        const gCanvas = document.getElementById('global-draw-canvas'), gCtx = gCanvas.getContext('2d', { desynchronized: true });
+        const gLaserCanvas = document.getElementById('global-laser-canvas'), gLaserCtx = gLaserCanvas.getContext('2d', { desynchronized: true });
+        let globalMode = 'cursor', globalPenColor = '#38bdf8', gDrawing = false, gPrevPt = null, gHistory = [], gLaserPoints = [];
+
+        function resizeGlobalCanvases() {
+            gCanvas.width = window.innerWidth; gCanvas.height = window.innerHeight;
+            gLaserCanvas.width = window.innerWidth; gLaserCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeGlobalCanvases); resizeGlobalCanvases();
+
+        window.adjustToolbarScale = function(d) {
+            appState.settings.toolbarScale = Math.max(0.7, Math.min(1.5, Number(((appState.settings.toolbarScale || 1) + d).toFixed(2))));
+            document.getElementById('global-annotator-bar').style.transform = `scale(${appState.settings.toolbarScale})`;
+            document.getElementById('toolbar-scale-badge').innerText = Math.round(appState.settings.toolbarScale * 100) + '%';
+        };
+        window.selectGlobalMode = function(mode) {
+            globalMode = mode;
+            document.querySelectorAll('.gmode-btn').forEach(b => { b.classList.remove('bg-emerald-600', 'bg-blue-600', 'text-white'); b.classList.add('bg-slate-800'); });
+            const btn = document.getElementById('gmode-' + mode);
+            if (btn) { btn.classList.remove('bg-slate-800'); btn.classList.add(mode === 'cursor' ? 'bg-emerald-600' : 'bg-blue-600', 'text-white'); }
+            gCanvas.style.pointerEvents = mode === 'cursor' ? 'none' : 'auto';
+        };
+        window.setGlobalColor = function(c) { globalPenColor = c; if (globalMode === 'cursor') selectGlobalMode('pen'); };
+        window.undoGlobalCanvas = function() { if (!gHistory.length) return; const img = new Image(); img.onload = () => { gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height); gCtx.drawImage(img, 0, 0); }; img.src = gHistory.pop(); };
+        window.clearGlobalCanvas = function() { gHistory.push(gCanvas.toDataURL()); gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height); };
+
+        gCanvas.addEventListener('pointerdown', (e) => {
+            if (globalMode === 'cursor') return;
+            gCanvas.setPointerCapture(e.pointerId); gDrawing = true; gPrevPt = { x: e.clientX, y: e.clientY };
+            if (globalMode === 'laser') gLaserPoints.push({ x: e.clientX, y: e.clientY, t: performance.now() });
+            else gHistory.push(gCanvas.toDataURL());
+        });
+        gCanvas.addEventListener('pointermove', (e) => {
+            if (!gDrawing || globalMode === 'cursor') return;
+            if (globalMode === 'laser') { gLaserPoints.push({ x: e.clientX, y: e.clientY, t: performance.now() }); return; }
+            gCtx.save(); gCtx.lineCap = 'round';
+            if (globalMode === 'eraser') { gCtx.globalCompositeOperation = 'destination-out'; gCtx.lineWidth = 28; }
+            else if (globalMode === 'highlighter') { gCtx.strokeStyle = globalPenColor; gCtx.globalAlpha = 0.28; gCtx.lineWidth = 22; }
+            else { gCtx.strokeStyle = globalPenColor; gCtx.lineWidth = 4; }
+            gCtx.beginPath(); gCtx.moveTo(gPrevPt.x, gPrevPt.y); gCtx.lineTo(e.clientX, e.clientY); gCtx.stroke(); gCtx.restore();
+            gPrevPt = { x: e.clientX, y: e.clientY };
+        });
+        gCanvas.addEventListener('pointerup', () => { gDrawing = false; });
+
+        // Draggable Toolbar
+        (function() {
+            const bar = document.getElementById('global-annotator-bar'), h = document.getElementById('annotator-drag-handle');
+            let drag = false, sx = 0, sy = 0, ol = 0, ot = 0;
+            h.addEventListener('pointerdown', (e) => { drag = true; h.setPointerCapture(e.pointerId); const r = bar.getBoundingClientRect(); ol = r.left; ot = r.top; sx = e.clientX; sy = e.clientY; });
+            h.addEventListener('pointermove', (e) => { if (!drag) return; bar.style.left = (ol + e.clientX - sx) + 'px'; bar.style.top = (ot + e.clientY - sy) + 'px'; bar.style.bottom = 'auto'; });
+            h.addEventListener('pointerup', () => { drag = false; });
+        })();
+
+        // Smart Board
+        const sbCanvas = document.getElementById('smartboard-canvas'), sbCtx = sbCanvas.getContext('2d', { desynchronized: true });
+        const sbLaserCanvas = document.getElementById('smartboard-laser-canvas'), sbLaserCtx = sbLaserCanvas.getContext('2d', { desynchronized: true });
+        let sbTool = 'pen', sbColor = '#38bdf8', sbDrawing = false, sbPrevPt = null, sbHistory = [], sbRedoStack = [], sbLaserPoints = [], sbSlides = [null], sbCurrentSlide = 0;
+
+        window.toggleSbDrawer = function() { const d = document.getElementById('sb-pro-drawer'); d.classList.toggle('hidden'); d.classList.toggle('flex'); };
+        window.toggleBrowserFullscreen = function() { if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {}); else document.exitFullscreen().catch(() => {}); };
+        window.resizeSmartBoard = function() {
+            const w = document.getElementById('sb-wrapper'); if (!w || !w.clientWidth) return;
+            const prev = sbCanvas.width > 0 ? sbCanvas.toDataURL() : null;
+            sbCanvas.width = w.clientWidth; sbCanvas.height = w.clientHeight;
+            sbLaserCanvas.width = w.clientWidth; sbLaserCanvas.height = w.clientHeight;
+            if (prev) { const img = new Image(); img.onload = () => sbCtx.drawImage(img, 0, 0); img.src = prev; }
+        };
+        window.setSbTool = function(t) { sbTool = t; document.querySelectorAll('.sb-tool-btn').forEach(b => b.classList.remove('bg-blue-600', 'text-white')); const el = document.getElementById('sb-tool-' + t); if (el) el.classList.add('bg-blue-600', 'text-white'); };
+        window.setSbColor = function(c) { sbColor = c; if (sbTool === 'eraser') setSbTool('pen'); };
+        window.setSbBackground = function(bg) {
+            const w = document.getElementById('sb-wrapper');
+            w.className = 'relative w-screen h-screen overflow-hidden gpu-layer ' + (bg === 'white' ? 'bg-white' : (bg === 'green' ? 'bg-[#064e3b]' : (bg === 'grid' ? 'bg-white sb-grid' : (bg === 'lines' ? 'bg-[#fffbeb] sb-lines' : 'bg-[#060a13]'))));
+        };
+        window.sbNextSlide = function() { sbSlides[sbCurrentSlide] = sbCanvas.toDataURL(); sbCurrentSlide++; if (sbCurrentSlide >= sbSlides.length) { sbSlides.push(null); sbCtx.clearRect(0, 0, sbCanvas.width, sbCanvas.height); } else { const img = new Image(); img.onload = () => { sbCtx.clearRect(0, 0, sbCanvas.width, sbCanvas.height); sbCtx.drawImage(img, 0, 0); }; img.src = sbSlides[sbCurrentSlide]; } document.getElementById('sb-slide-indicator').innerText = `${sbCurrentSlide + 1} / ${sbSlides.length}`; };
+        window.sbPrevSlide = function() { if (!sbCurrentSlide) return; sbSlides[sbCurrentSlide] = sbCanvas.toDataURL(); sbCurrentSlide--; const img = new Image(); img.onload = () => { sbCtx.clearRect(0, 0, sbCanvas.width, sbCanvas.height); sbCtx.drawImage(img, 0, 0); }; img.src = sbSlides[sbCurrentSlide]; document.getElementById('sb-slide-indicator').innerText = `${sbCurrentSlide + 1} / ${sbSlides.length}`; };
+        window.sbUndo = function() { if (!sbHistory.length) return; sbRedoStack.push(sbCanvas.toDataURL()); const img = new Image(); img.onload = () => { sbCtx.clearRect(0, 0, sbCanvas.width, sbCanvas.height); sbCtx.drawImage(img, 0, 0); }; img.src = sbHistory.pop(); };
+        window.sbRedo = function() { if (!sbRedoStack.length) return; sbHistory.push(sbCanvas.toDataURL()); const img = new Image(); img.onload = () => { sbCtx.clearRect(0, 0, sbCanvas.width, sbCanvas.height); sbCtx.drawImage(img, 0, 0); }; img.src = sbRedoStack.pop(); };
+        window.sbClear = function() { sbHistory.push(sbCanvas.toDataURL()); sbCtx.clearRect(0, 0, sbCanvas.width, sbCanvas.height); };
+        window.sbDownload = function() { const a = document.createElement('a'); a.download = 'Sahaltahalak_Board.png'; a.href = sbCanvas.toDataURL(); a.click(); };
+
+        sbCanvas.addEventListener('pointerdown', (e) => { sbCanvas.setPointerCapture(e.pointerId); sbDrawing = true; sbPrevPt = { x: e.clientX, y: e.clientY }; if (sbTool !== 'laser') sbHistory.push(sbCanvas.toDataURL()); });
+        sbCanvas.addEventListener('pointermove', (e) => {
+            if (!sbDrawing) return;
+            if (sbTool === 'laser') { sbLaserPoints.push({ x: e.clientX, y: e.clientY, t: performance.now() }); return; }
+            sbCtx.save(); sbCtx.lineCap = 'round';
+            if (sbTool === 'eraser') { sbCtx.globalCompositeOperation = 'destination-out'; sbCtx.lineWidth = 28; }
+            else if (sbTool === 'highlighter') { sbCtx.strokeStyle = sbColor; sbCtx.globalAlpha = 0.25; sbCtx.lineWidth = 24; }
+            else { sbCtx.strokeStyle = sbColor; sbCtx.lineWidth = 4; }
+            sbCtx.beginPath(); sbCtx.moveTo(sbPrevPt.x, sbPrevPt.y); sbCtx.lineTo(e.clientX, e.clientY); sbCtx.stroke(); sbCtx.restore();
+            sbPrevPt = { x: e.clientX, y: e.clientY };
+        });
+        sbCanvas.addEventListener('pointerup', () => { sbDrawing = false; });
+
+        function laserLoop() {
+            const now = performance.now();
+            [ [gLaserCtx, gLaserCanvas, gLaserPoints], [sbLaserCtx, sbLaserCanvas, sbLaserPoints] ].forEach(([ctx, cvs, pts]) => {
+                ctx.clearRect(0, 0, cvs.width, cvs.height);
+                for (let i = pts.length - 1; i >= 0; i--) { if (now - pts[i].t > 700) pts.splice(i, 1); }
+                for (let i = 1; i < pts.length; i++) {
+                    const a = Math.max(0, 1 - (now - pts[i].t) / 700);
+                    ctx.save(); ctx.strokeStyle = `rgba(244,63,94,${a})`; ctx.lineWidth = 5 * a; ctx.lineCap = 'round';
+                    ctx.beginPath(); ctx.moveTo(pts[i - 1].x, pts[i - 1].y); ctx.lineTo(pts[i].x, pts[i].y); ctx.stroke(); ctx.restore();
+                }
+            });
+            requestAnimationFrame(laserLoop);
+        }
+        requestAnimationFrame(laserLoop);
+
+        // Auth & Telemetry
+        window.openAuthModal = function(r = 'student') { const m = document.getElementById('auth-modal'); m.classList.remove('hidden'); m.classList.add('flex'); switchAuthRole(r); };
+        window.closeAuthModal = function() { const m = document.getElementById('auth-modal'); m.classList.add('hidden'); m.classList.remove('flex'); };
+        window.switchAuthRole = function(r) {
+            ['student', 'teacher', 'developer'].forEach(x => { document.getElementById('auth-form-' + x).classList.add('hidden'); document.getElementById('role-tab-' + x).classList.remove('bg-accent', 'text-white'); });
+            document.getElementById('auth-form-' + r).classList.remove('hidden'); document.getElementById('role-tab-' + r).classList.add('bg-accent', 'text-white');
+        };
+        window.sendStudentSmsOtp = function() {
+            const name = document.getElementById('stu-name-inp').value.trim(), phone = document.getElementById('stu-phone-inp').value.trim(), parent = document.getElementById('stu-parent-inp').value.trim();
+            if (!name || !phone || !parent) { showNotification('بيانات ناقصة', 'أدخل اسم الطالب ورقم هاتفه ورقم ولي الأمر.'); return; }
+            generatedSmsOtp = Math.floor(100000 + Math.random() * 900000).toString();
+            pendingStudentData = { name, stuPhone: phone, parentPhone: parent };
+            document.getElementById('otp-verify-box').classList.remove('hidden');
+            document.getElementById('sms-popup-text').innerText = `كود تفعيل حسابك على سهلتهالك بخطوه وربط رقم ولي الأمر (${parent}):`;
+            document.getElementById('sms-popup-code').innerText = generatedSmsOtp;
+            document.getElementById('sms-popup-banner').classList.remove('hidden');
+        };
+        window.verifyStudentOtp = function() {
+            if (document.getElementById('stu-otp-inp').value.trim() === generatedSmsOtp && pendingStudentData) {
+                appState.studentProfile.name = pendingStudentData.name;
+                document.getElementById('header-user-name').innerText = pendingStudentData.name;
+                document.getElementById('sms-popup-banner').classList.add('hidden');
+                closeAuthModal();
+                addStudentXp(100);
+                triggerAdminTelemetryAlert({ name: pendingStudentData.name, role: 'طالب', stuPhone: pendingStudentData.stuPhone, parentPhone: pendingStudentData.parentPhone, method: 'SMS OTP', timeStr: new Date().toLocaleString('ar-EG') }, false);
+                showNotification('تم التفعيل (+100 XP)', `مرحباً بك يا ${pendingStudentData.name}!`);
+            }
+        };
+        window.socialStudentLogin = function(p) {
+            const parent = document.getElementById('stu-parent-inp').value.trim();
+            if (!parent) { showNotification('رقم ولي الأمر مطلوب', 'أدخل رقم ولي الأمر أولاً.'); return; }
+            const name = document.getElementById('stu-name-inp').value.trim() || `طالب (${p})`;
+            appState.studentProfile.name = name;
+            document.getElementById('header-user-name').innerText = name;
+            closeAuthModal();
+            addStudentXp(100);
+            triggerAdminTelemetryAlert({ name, role: 'طالب', stuPhone: '-', parentPhone: parent, method: p, timeStr: new Date().toLocaleString('ar-EG') }, false);
+        };
+        window.loginTeacher = function() {
+            const name = document.getElementById('teacher-name-inp').value.trim() || 'معلم المنصة';
+            document.getElementById('header-user-name').innerText = name;
+            closeAuthModal();
+            showNotification('مرحباً', 'تم تسجيل الدخول كمعلم.');
+        };
+        window.loginDeveloper = function() {
+            if (document.getElementById('dev-pass-inp').value.trim() === 'hassan010' && document.getElementById('dev-code-inp').value.trim() === 'hassanelqodwa1') {
+                isDeveloperLoggedIn = true;
+                document.getElementById('header-user-name').innerText = 'المشرف: Hassanelngar';
+                document.getElementById('nav-dev-btn').classList.remove('hidden');
+                initDevPanel();
+                closeAuthModal();
+                navigateTo('developer');
+            } else showNotification('خطأ', 'بيانات المطور غير صحيحة.');
+        };
+
+        window.triggerAdminTelemetryAlert = function(entry, openWa) {
+            const phone = (appState.settings.adminPhone || '01050489662').replace(/\D/g, '').replace(/^0/, '20');
+            const msg = `🔔 إشعار منصة سهلتهالك بخطوه:\nالاسم: ${entry.name}\nالصفة: ${entry.role}\nالهاتف: ${entry.stuPhone}\nولي الأمر: ${entry.parentPhone}\nالتفاصيل: ${entry.method}`;
+            const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+            document.getElementById('admin-alert-text').innerText = `${entry.name} (${entry.role})`;
+            document.getElementById('admin-wa-direct-link').href = waUrl;
+            document.getElementById('admin-alert-toast').classList.remove('hidden');
+            if (openWa) window.open(waUrl, '_blank', 'noopener');
+        };
+
+        window.switchDevTab = function(t) {
+            ['media', 'cloud', 'pdfupload', 'supportmgr', 'curriculum', 'branding'].forEach(x => {
+                const p = document.getElementById('devpanel-' + x); if (p) { p.classList.add('hidden'); p.classList.remove('grid'); }
+                const b = document.getElementById('devtab-' + x); if (b) { b.classList.remove('bg-amber-500', 'text-slate-950'); b.classList.add('text-textMain'); }
+            });
+            const ap = document.getElementById('devpanel-' + t); if (ap) { ap.classList.remove('hidden'); ap.classList.add('grid'); }
+            const ab = document.getElementById('devtab-' + t); if (ab) { ab.classList.add('bg-amber-500', 'text-slate-950'); ab.classList.remove('text-textMain'); }
+        };
+
+        function initDevPanel() {
+            const subOpts = appState.curriculum.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+            const subNameOpts = appState.curriculum.map(s => `<option value="${s.name}">${s.name}</option>`).join('');
+            document.getElementById('admin-media-subject').innerHTML = subOpts;
+            document.getElementById('cms-sub-select').innerHTML = subOpts;
+            document.getElementById('dev-pdf-subject').innerHTML = subNameOpts;
+            populateCmsUnits();
+            renderAdminMediaList();
+            renderSupportTickets();
+            renderCmsCurriculumTree();
+            refreshPdfLibraryFromDB();
+        }
+
+        window.saveAndApplyDevConfig = function() {
+            appState.settings.brandName = document.getElementById('dev-inp-brand').value.trim() || 'سهلتهالك بخطوه';
+            appState.settings.footerCredit = document.getElementById('dev-inp-footer').value.trim() || 'عمل وتطوير تيم القدوه Hassanelngar';
+            appState.settings.maintenanceMode = document.getElementById('dev-tog-maintenance').checked;
+            appState.settings.adminPhone = document.getElementById('dev-admin-phone').value.trim() || '01050489662';
+            saveCloudState(); applyAllUI();
+            showNotification('تم الحفظ', 'تم تعميم إعدادات المشرف بنجاح.');
+        };
+
+        window.populateCmsUnits = function() {
+            const sub = appState.curriculum.find(s => s.id === document.getElementById('cms-sub-select').value);
+            if (sub) document.getElementById('cms-unit-select').innerHTML = sub.units.map((u, i) => `<option value="${i}">${u.unitName}</option>`).join('');
+        };
+
+        window.cmsAddLesson = function() {
+            const sub = appState.curriculum.find(s => s.id === document.getElementById('cms-sub-select').value);
+            const uIdx = Number(document.getElementById('cms-unit-select').value);
+            const title = document.getElementById('cms-lesson-title').value.trim();
+            const body = document.getElementById('cms-lesson-body').value.trim();
+            if (!sub || !title || !body) return;
+            const q = document.getElementById('cms-quiz-q').value.trim();
+            const opts = document.getElementById('cms-quiz-opts').value.split('،').map(s => s.trim()).filter(Boolean);
+            sub.units[uIdx].lessons.push({
+                title,
+                subtitle: 'محتوى معتمد من منصة سهلتهالك بخطوه',
+                videoUrl: convertYoutubeToEmbed(document.getElementById('cms-lesson-video').value.trim()),
+                visualSVG: '',
+                body: `<p>${body.replace(/\n/g, '<br>')}</p>`,
+                quiz: (q && opts.length >= 2) ? [{ q, options: opts, ans: 0 }] : []
+            });
+            document.getElementById('cms-lesson-title').value = '';
+            document.getElementById('cms-lesson-body').value = '';
+            saveCloudState(); applyAllUI(); renderCmsCurriculumTree();
+            showNotification('تم النشر', 'تمت إضافة الدرس بنجاح.');
+        };
+
+        function renderCmsCurriculumTree() {
+            const box = document.getElementById('cms-curriculum-tree');
+            if (!box) return;
+            box.innerHTML = appState.curriculum.map((s, si) => `
+                <div class="p-3 rounded-xl bg-card border border-borderCol text-xs space-y-1">
+                    <div class="font-black text-accent">${s.name}</div>
+                    ${s.units.map((u, ui) => u.lessons.map((l, li) => `
+                        <div class="flex justify-between bg-primary px-2.5 py-1 rounded-lg">
+                            <span>${l.title}</span>
+                            <button onclick="appState.curriculum[${si}].units[${ui}].lessons.splice(${li},1); saveCloudState(); applyAllUI(); renderCmsCurriculumTree();" class="text-rose-400"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    `).join('')).join('')}
+                </div>
+            `).join('');
+        }
+
+        function convertYoutubeToEmbed(url) {
+            if (!url) return '';
+            const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^&?]+)/);
+            return m ? `https://www.youtube.com/embed/${m[1]}?rel=0` : url;
+        }
+
+        function showNotification(title, body) {
+            const toast = document.getElementById('app-toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-body').innerText = body;
+            toast.classList.remove('hidden');
+            clearTimeout(window._tTimer);
+            window._tTimer = setTimeout(() => toast.classList.add('hidden'), 5000);
+        }
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            loadCloudState();
+            applyAllUI();
+            await refreshPdfLibraryFromDB();
+        });
+    </script>
+</body>
+</html>
